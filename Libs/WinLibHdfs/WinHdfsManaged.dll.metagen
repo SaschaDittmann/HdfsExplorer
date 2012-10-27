@@ -1,0 +1,170 @@
+ImageRuntimeVersion: v4.0.30319
+Assembly WinHdfsManaged, Version=1.0.*, Culture=Invariant Language (Invariant Country): 
+	hash=SHA1, flags=PublicKey
+Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=None, flags=None
+Assembly System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Xml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly Microsoft.VisualC, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=None, flags=None
+Class Microsoft.Hdfs.ConfigureIsotope: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    Setup(): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Hdfs.HdfsFileInfoEntry: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.IDisposable
+  Properties:
+    Int16 Permissions 'get ' : 
+    System.String Group 'get ' : 
+    System.String Owner 'get ' : 
+    Int64 BlockSize 'get ' : 
+    Int16 Replication 'get ' : 
+    Int64 Size 'get ' : 
+    System.DateTime LastAccessed 'get ' : 
+    System.DateTime LastModified 'get ' : 
+    System.String Name 'get ' : 
+    Microsoft.Hdfs.HdfsFileInfoEntryKind Kind 'get ' : 
+  Methods:
+    get_Kind(): PrivateScope, Public, HideBySig, SpecialName
+    get_Name(): PrivateScope, Public, HideBySig, SpecialName
+    get_LastModified(): PrivateScope, Public, HideBySig, SpecialName
+    get_LastAccessed(): PrivateScope, Public, HideBySig, SpecialName
+    get_Size(): PrivateScope, Public, HideBySig, SpecialName
+    get_Replication(): PrivateScope, Public, HideBySig, SpecialName
+    get_BlockSize(): PrivateScope, Public, HideBySig, SpecialName
+    get_Owner(): PrivateScope, Public, HideBySig, SpecialName
+    get_Group(): PrivateScope, Public, HideBySig, SpecialName
+    get_Permissions(): PrivateScope, Public, HideBySig, SpecialName
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig
+Struct Microsoft.Hdfs.HdfsFileInfoEntryKind: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    Microsoft.Hdfs.HdfsFileInfoEntryKind Directory = 1 : Public, Static, Literal, HasDefault
+    Microsoft.Hdfs.HdfsFileInfoEntryKind File = 0 : Public, Static, Literal, HasDefault
+Struct Microsoft.Hdfs.HdfsFileAccess: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    Microsoft.Hdfs.HdfsFileAccess Append = 2 : Public, Static, Literal, HasDefault
+    Microsoft.Hdfs.HdfsFileAccess Write = 1 : Public, Static, Literal, HasDefault
+    Microsoft.Hdfs.HdfsFileAccess Read = 0 : Public, Static, Literal, HasDefault
+Class Microsoft.Hdfs.HdfsFileStream: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.IO.Stream
+  Properties:
+    System.String Name 'get ' : 
+    Int32 WriteTimeout 'get set' : 
+    Int32 ReadTimeout 'get set' : 
+    Int64 Position 'get set' : 
+    Int64 Length 'get ' : 
+    Boolean CanWrite 'get ' : 
+    Boolean CanTimeout 'get ' : 
+    Boolean CanSeek 'get ' : 
+    Boolean CanRead 'get ' : 
+  Methods:
+    get_CanRead(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    get_CanSeek(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    get_CanTimeout(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    get_CanWrite(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    get_Length(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    get_Position(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    set_Position(Int64): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    get_ReadTimeout(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    set_ReadTimeout(Int32): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    get_WriteTimeout(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    set_WriteTimeout(Int32): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    get_Name(): PrivateScope, Public, HideBySig, SpecialName
+    Close(): PrivateScope, Public, Final, Virtual, HideBySig
+    CopyTo(Stream, Int32): PrivateScope, Public, HideBySig
+    CopyTo(Stream): PrivateScope, Public, HideBySig
+    Flush(): PrivateScope, Public, Final, Virtual, HideBySig
+    Read(Byte[](In, Out), Int32, Int32): PrivateScope, Public, Final, Virtual, HideBySig
+    ReadByte(): PrivateScope, Public, Final, Virtual, HideBySig
+    Seek(Int64, SeekOrigin): PrivateScope, Public, Final, Virtual, HideBySig
+    SetLength(Int64): PrivateScope, Public, Final, Virtual, HideBySig
+    Write(Byte[], Int32, Int32): PrivateScope, Public, Final, Virtual, HideBySig
+    WriteByte(Byte): PrivateScope, Public, Final, Virtual, HideBySig
+    PositionalRead(Byte[], Int32, Int32, Int32): PrivateScope, Public, HideBySig
+    PositionalReadByte(Int32): PrivateScope, Public, HideBySig
+    Chown(String, String): PrivateScope, Public, HideBySig
+    Chmod(Int16): PrivateScope, Public, HideBySig
+    SetTimes(DateTime, DateTime): PrivateScope, Public, HideBySig
+    GetInformation(): PrivateScope, Public, HideBySig
+    IsValid(): PrivateScope, Public, HideBySig
+Class Microsoft.Hdfs.HdfsFileHandle: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  Interfaces:
+    System.IDisposable
+  Properties:
+    System.String Name 'get ' : 
+  Methods:
+    get_Name(): PrivateScope, Public, HideBySig, SpecialName
+    WriteBytes(Byte[], Int32, Int32): PrivateScope, Public, HideBySig
+    WriteByte(ValueType Byte IsBoxed): PrivateScope, Public, HideBySig
+    WriteLine(String): PrivateScope, Public, HideBySig
+    ReadBytes(Byte[], Int32, Int32): PrivateScope, Public, HideBySig
+    ReadByte(): PrivateScope, Public, HideBySig
+    ReadLine(): PrivateScope, Public, HideBySig
+    PositionalReadBytes(Byte[], Int32, Int32, Int32): PrivateScope, Public, HideBySig
+    PositionalReadByte(Int32): PrivateScope, Public, HideBySig
+    Seek(Int64): PrivateScope, Public, HideBySig
+    Tell(): PrivateScope, Public, HideBySig
+    Available(): PrivateScope, Public, HideBySig
+    Close(): PrivateScope, Public, HideBySig
+    Flush(): PrivateScope, Public, HideBySig
+    IsValid(): PrivateScope, Public, HideBySig
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig
+Class Microsoft.Hdfs.HdfsFileInfoEntries: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  Interfaces:
+    System.IDisposable
+  Properties:
+    System.Collections.Generic.List`1[Microsoft.Hdfs.HdfsFileInfoEntry] Entries 'get ' : 
+  Methods:
+    get_Entries(): PrivateScope, Public, HideBySig, SpecialName
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig
+Class Microsoft.Hdfs.HdfsFileSystem: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  Interfaces:
+    System.IDisposable
+  Methods:
+    Chown(String, String, String): PrivateScope, Public, HideBySig
+    Chmod(String, Int16): PrivateScope, Public, HideBySig
+    SetTimes(String, DateTime, DateTime): PrivateScope, Public, HideBySig
+    GetPathInfo(String): PrivateScope, Public, HideBySig
+    Connect(String, UInt16, String): PrivateScope, Public, Static, HideBySig
+    Connect(String, UInt16): PrivateScope, Public, Static, HideBySig
+    FileExists(String): PrivateScope, Public, HideBySig
+    DeleteFile(String): PrivateScope, Public, HideBySig
+    RenameFile(String, String): PrivateScope, Public, HideBySig
+    GetWorkingDirectory(): PrivateScope, Public, HideBySig
+    SetWorkingDirectory(String): PrivateScope, Public, HideBySig
+    CreateDirectory(String): PrivateScope, Public, HideBySig
+    SetReplication(String, Int16): PrivateScope, Public, HideBySig
+    ListDirectory(String): PrivateScope, Public, HideBySig
+    GetDefaultBlockSize(): PrivateScope, Public, HideBySig
+    GetCapacity(): PrivateScope, Public, HideBySig
+    GetUsed(): PrivateScope, Public, HideBySig
+    GetHosts(String, Int64, Int64): PrivateScope, Public, HideBySig
+    OpenFileStream(String, HdfsFileAccess): PrivateScope, Public, HideBySig
+    OpenFileStream(String, HdfsFileAccess, Int32): PrivateScope, Public, HideBySig
+    OpenFileStream(String, HdfsFileAccess, Int32, Int16, Int32): PrivateScope, Public, HideBySig
+    OpenFileForRead(String): PrivateScope, Public, HideBySig
+    OpenFileForRead(String, Int32): PrivateScope, Public, HideBySig
+    OpenFileForWrite(String): PrivateScope, Public, HideBySig
+    OpenFileForWrite(String, Int32, Int16, Int32): PrivateScope, Public, HideBySig
+    OpenFileForAppend(String): PrivateScope, Public, HideBySig
+    OpenFileForAppend(String, Int32, Int16, Int32): PrivateScope, Public, HideBySig
+    Copy(HdfsFileSystem, String, HdfsFileSystem, String): PrivateScope, Public, Static, HideBySig
+    Move(HdfsFileSystem, String, HdfsFileSystem, String): PrivateScope, Public, Static, HideBySig
+    Close(): PrivateScope, Public, HideBySig
+    IsValid(): PrivateScope, Public, HideBySig
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig

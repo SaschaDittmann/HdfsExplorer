@@ -1,0 +1,1173 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        "WinHdfsManaged"
+    </assembly>
+    <members>
+        <member name="M:Microsoft.Hdfs.HdfsFileStream.set_WriteTimeout(System.Int32)">
+            <summary>
+Sets a value, in miliseconds, that determines how long the stream will attempt to write before timing out.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileStream.get_WriteTimeout">
+            <summary>
+Gets or sets a value, in miliseconds, that determines how long the stream will attempt to write before timing out.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileStream.set_ReadTimeout(System.Int32)">
+            <summary>
+Sets a value, in miliseconds, that determines how long the stream will attempt to read before timing out. 
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileStream.get_ReadTimeout">
+            <summary>
+Gets or sets a value, in miliseconds, that determines how long the stream will attempt to read before timing out. 
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileStream.set_Position(System.Int64)">
+            <summary>
+Sets the position within the current stream.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileStream.get_Position">
+            <summary>
+Gets the position within the current stream.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileStream.get_Length">
+            <summary>
+Gets the number of bytes that can be read from this input stream without blocking.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileStream.get_CanWrite">
+            <summary>
+Gets a value indicating whether the current stream supports writing.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileStream.get_CanTimeout">
+            <summary>
+Gets a value that determines whether the current stream can time out.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileStream.get_CanSeek">
+            <summary>
+Gets a value indicating whether the current stream supports seeking.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileStream.get_CanRead">
+            <summary>
+Gets a value indicating whether the current stream supports reading.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileStream.get_Name">
+            <summary>
+Gets the HDFS file path.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileSystem.IsValid">
+            <summary>
+Determines if the HDFS file system connection is valid.
+</summary>
+            <returns>Indicator for whether file system is valid.</returns>
+            <summary>
+Determines if the HDFS file system connection is valid.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileSystem.Close">
+            <summary>
+Closes a HDFS file system connection.
+</summary>
+            <returns>Indicator for whether the file was closed.</returns>
+            <exception cref="T:System.IO.IOException">Thrown when Close fails.</exception>
+            <summary>
+Closes a HDFS file system connection.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileSystem.Move(Microsoft.Hdfs.HdfsFileSystem,System.String,Microsoft.Hdfs.HdfsFileSystem,System.String)">
+            <summary>
+Moves a HDFS file from one system to another.
+</summary>
+            <param name="conHandleFrom">Connection handle to source file system.</param>
+            <param name="pathFrom">Source file path.</param>
+            <param name="conHandleTo">Connection handle to destination file system.</param>
+            <param name="pathTo">Destination file path.</param>
+            <exception cref="T:System.IO.IOException">Thrown when move fails.</exception>
+            <summary>
+Moves a HDFS file.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileSystem.Copy(Microsoft.Hdfs.HdfsFileSystem,System.String,Microsoft.Hdfs.HdfsFileSystem,System.String)">
+            <summary>
+Copies a HDFS file from one system to another.
+</summary>
+            <param name="conHandleFrom">Connection handle to source file system.</param>
+            <param name="pathFrom">Source file path.</param>
+            <param name="conHandleTo">Connection handle to destination file system.</param>
+            <param name="pathTo">Destination file path.</param>
+            <exception cref="T:System.IO.IOException">Thrown when copy fails.</exception>
+            <summary>
+Copies a HDFS file.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileSystem.OpenFileForAppend(System.String)">
+            <summary>
+Opens a HDFS file for appending using default open values.
+</summary>
+            <remarks>Only support in version 1.0.0 and above.</remarks>
+            <param name="path">The file path to open.</param>
+            <returns>HDFS File Handle.</returns>
+            <summary>
+Opens a HDFS file for appending using default open values.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileSystem.OpenFileForAppend(System.String,System.Int32,System.Int16,System.Int32)">
+            <summary>
+Opens a HDFS file for appending.
+</summary>
+            <remarks>Only support in version 1.0.0 and above.</remarks>
+            <param name="path">The file path to open.</param>
+            <param name="bufferSize">Buffer size or 0 if you want to use the default configured values.</param>
+            <param name="replication">Block replication or 0 if you want to use the default configured values.</param>
+            <param name="blocksize">Block size or 0 if you want to use the default configured values.</param>
+            <returns>HDFS File Handle.</returns>
+            <summary>
+Opens a HDFS file for appending.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileSystem.OpenFileForWrite(System.String)">
+            <summary>
+Opens a HDFS file for writing using default open values.
+</summary>
+            <param name="path">The file path to open.</param>
+            <returns>HDFS File Handle.</returns>
+            <summary>
+Opens a HDFS file for writing using default open values.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileSystem.OpenFileForWrite(System.String,System.Int32,System.Int16,System.Int32)">
+            <summary>
+Opens a HDFS file for writing.
+</summary>
+            <param name="path">The file path to open.</param>
+            <param name="bufferSize">Buffer size or 0 if you want to use the default configured values.</param>
+            <param name="replication">Block replication or 0 if you want to use the default configured values.</param>
+            <param name="blocksize">Block size or 0 if you want to use the default configured values.</param>
+            <returns>HDFS File Handle.</returns>
+            <summary>
+Opens a HDFS file for writing.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileSystem.OpenFileForRead(System.String)">
+            <summary>
+Opens a HDFS file for reading using default open values.
+</summary>
+            <param name="path">The file path to open.</param>
+            <returns>HDFS File Handle.</returns>
+            <summary>
+Opens a HDFS file for reading using default open values.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileSystem.OpenFileForRead(System.String,System.Int32)">
+            <summary>
+Opens a HDFS file for reading.
+</summary>
+            <param name="path">The file path to open.</param>
+            <param name="bufferSize">Buffer size or 0 if you want to use the default configured values.</param>
+            <returns>HDFS File Handle.</returns>
+            <summary>
+Opens a HDFS file for reading.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileSystem.OpenFileStream(System.String,Microsoft.Hdfs.HdfsFileAccess)">
+            <summary>
+Opens a HDFS file stream for processing.
+</summary>
+            <param name="path">The file path to open.</param>
+            <param name="path">The file access mode.</param>
+            <returns>HDFS File Stream.</returns>
+            <summary>
+Opens a HDFS file stream for processing.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileSystem.OpenFileStream(System.String,Microsoft.Hdfs.HdfsFileAccess,System.Int32)">
+            <summary>
+Opens a HDFS file stream for processing.
+</summary>
+            <param name="path">The file path to open.</param>
+            <param name="path">The file access mode.</param>
+            <param name="bufferSize">Buffer size or 0 if you want to use the default configured values.</param>
+            <returns>HDFS File Stream.</returns>
+            <summary>
+Opens a HDFS file stream for processing.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileSystem.OpenFileStream(System.String,Microsoft.Hdfs.HdfsFileAccess,System.Int32,System.Int16,System.Int32)">
+            <summary>
+Opens a HDFS file stream for processing.
+</summary>
+            <param name="path">The file path to open.</param>
+            <param name="path">The file access mode.</param>
+            <param name="bufferSize">Buffer size or 0 if you want to use the default configured values.</param>
+            <param name="replication">Block replication or 0 if you want to use the default configured values.</param>
+            <param name="blocksize">Block size or 0 if you want to use the default configured values.</param>
+            <returns>HDFS File Stream.</returns>
+            <summary>
+Opens a HDFS file stream for processing.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileSystem.SetTimes(System.String,System.DateTime,System.DateTime)">
+            <summary>
+Modifies the Path or File Modified and Last Accessed Time.
+</summary>
+            <param name="path">The file path to configure.</param>
+            <param name="modifiedTime">The modified time.</param>
+            <param name="accessedTime">The last accessed time.</param>
+            <returns>Indicator for whether the file modification was successful.</returns>
+            <exception cref="T:System.IO.IOException">Thrown when the Set fails.</exception>
+            <summary>
+Modifies the Path or File Modified and Last Accessed Time.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileSystem.GetHosts(System.String,System.Int64,System.Int64)">
+            <summary>
+Gets the hostnames where a particular block of a HDFS file is stored.
+</summary>
+            <param name="path">The file path to query.</param>
+            <param name="start">The block start.</param>
+            <param name="length">The block length.</param>
+            <returns>A List of host names.</returns>
+            <summary>
+Gets the hostnames where a particular block of a HDFS file is stored.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileSystem.Chmod(System.String,System.Int16)">
+            <summary>
+Performs a chmod of a HDFS Path or File.
+</summary>
+            <param name="path">The directory or file path to configure.</param>
+            <param name="mode">The mode bitmask.</param>
+            <returns>Indicator for whether the chmod was successful.</returns>
+            <exception cref="T:System.IO.IOException">Thrown when Chmod fails.</exception>
+            <summary>
+Performs a chmod of a HDFS Path or File.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileSystem.Chown(System.String,System.String,System.String)">
+            <summary>
+Performs a chown of a HDFS Path or File.
+</summary>
+            <param name="path">The directory or file path to configure.</param>
+            <param name="owner">The new owner.</param>
+            <param name="group">The new group.</param>
+            <returns>Indicator for whether the chown was successful.</returns>
+            <exception cref="T:System.IO.IOException">Thrown when Chown fails.</exception>
+            <summary>
+Performs a chown of a HDFS Path or File.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileSystem.GetUsed">
+            <summary>
+Gets the used HDFS capacity.
+</summary>
+            <returns>The used Capacity.</returns>
+            <summary>
+Gets the used HDFS capacity.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileSystem.GetCapacity">
+            <summary>
+Gets the HDFS available capacity.
+</summary>
+            <returns>The available Capacity.</returns>
+            <summary>
+Gets the HDFS available capacity.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileSystem.GetDefaultBlockSize">
+            <summary>
+Gets the HDFS Default Block Size.
+</summary>
+            <returns>The Default Block Size.</returns>
+            <summary>
+Gets the HDFS Default Block Size.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileSystem.GetPathInfo(System.String)">
+            <summary>
+Gets the information associated with a File or Path.
+</summary>
+            <param name="path">The file path to query.</param>
+            <returns>Path or File Information.</returns>
+            <summary>
+Gets the information associated with a File or Path.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileSystem.ListDirectory(System.String)">
+            <summary>
+Lists the Files and Directories within a Directory.
+</summary>
+            <param name="path">The directory path to list.</param>
+            <returns>List of File Information.</returns>
+            <summary>
+Lists the Files and Directories within a Directory.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileSystem.SetReplication(System.String,System.Int16)">
+            <summary>
+Sets the replication count for a HDFS file.
+</summary>
+            <param name="path">The file path.</param>
+            <param name="replication">The replication factor to set.</param>
+            <returns>Indicator for whether the Replication was set.</returns>
+            <exception cref="T:System.IO.IOException">Thrown when Set fails.</exception>
+            <summary>
+Sets the replication count for a HDFS file.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileSystem.CreateDirectory(System.String)">
+            <summary>
+Creates a new HDFS Directory.
+</summary>
+            <param name="dir">The directory to create.</param>
+            <returns>Indicator for whether the Directory was created.</returns>
+            <exception cref="T:System.IO.IOException">Thrown when Directory Create fails.</exception>
+            <summary>
+Creates a new HDFS Directory.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileSystem.SetWorkingDirectory(System.String)">
+            <summary>
+Sets the current HDFS Working Directory.
+</summary>
+            <param name="filePathTo">The directory to set as working.</param>
+            <returns>Indicator for whether the Working Directory has changed.</returns>
+            <exception cref="T:System.IO.IOException">Thrown when Set fails.</exception>
+            <summary>
+Sets the current HDFS Working Directory.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileSystem.GetWorkingDirectory">
+            <summary>
+Gets the current HDFS Working Directory.
+</summary>
+            <returns>The Working Directory.</returns>
+            <summary>
+Gets the current HDFS Working Directory.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileSystem.RenameFile(System.String,System.String)">
+            <summary>
+Renames and existing HDFS file.
+</summary>
+            <param name="filePathFrom">The From file path.</param>
+            <param name="filePathTo">The To file path.</param>
+            <returns>Indicator for whether file has been renamed.</returns>
+            <exception cref="T:System.IO.IOException">Thrown when Rename fails.</exception>
+            <summary>
+Renames and existing HDFS file.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileSystem.DeleteFile(System.String)">
+            <summary>
+Deletes and existsing file from HDFS.
+</summary>
+            <param name="filePath">The file path to delete.</param>
+            <returns>Indicator for whether file has been deleted.</returns>
+            <exception cref="T:System.IO.IOException">Thrown when Delete fails.</exception>
+            <summary>
+Deletes and existsing file from HDFS.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileSystem.FileExists(System.String)">
+            <summary>
+Check for the existence of a file within HDFS.
+</summary>
+            <param name="filePath">The file path to look for.</param>
+            <returns>Indicator for whether file exists.</returns>
+            <summary>
+Check for the existence of a file within HDFS.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileSystem.Dispose">
+            <summary>
+Destroys the HDFS Connection Handle.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileSystem.Finalize">
+            <summary>
+Disposes of the HDFS Connection Handle.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileSystem.Connect(System.String,System.UInt16,System.String)">
+            <summary>
+Gets a connection to an Hadoop cluster with a user name.
+</summary>
+            <param name="host">The host name or IP address.</param>
+            <param name="port">The port on which the server is listening.</param>
+            <param name="user">The user for the connection.</param>
+            <returns>HDFS Connection Handle.</returns>
+            <exception cref="T:System.IO.IOException">Thrown when the Connect fails.</exception>
+            <summary>
+Gets a connection to an Hadoop cluster with a user name.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileSystem.Connect(System.String,System.UInt16)">
+            <summary>
+Gets a connection to an Hadoop cluster.
+</summary>
+            <param name="host">The host name or IP address.</param>
+            <param name="port">The port on which the server is listening.</param>
+            <returns>HDFS Connection Handle.</returns>
+            <exception cref="T:System.IO.IOException">Thrown when the Connect fails.</exception>
+            <summary>
+Gets a connection to an Hadoop cluster.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileSystem.GetPathInfo(System.Void*,System.String)">
+            <summary>
+Gets the information associated with a File or Path given a connection.
+</summary>
+            <summary>
+Gets the information associated with a File or Path given a connection.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileSystem.SetTimes(System.Void*,System.String,System.DateTime,System.DateTime)">
+            <summary>
+Modifies the Path or File Modified and Last Accessed Time given a connection.
+</summary>
+            <summary>
+Modifies the Path or File Modified and Last Accessed Time given a connection.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileSystem.Chmod(System.Void*,System.String,System.Int16)">
+            <summary>
+Performs a chmod of a HDFS Path or File given a connection.
+</summary>
+            <summary>
+Performs a chmod of a HDFS Path or File given a connection.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileSystem.Chown(System.Void*,System.String,System.String,System.String)">
+            <summary>
+Performs a chown of a HDFS Path or File given a connection.
+</summary>
+            <summary>
+Performs a chown of a HDFS Path or File given a connection.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileSystem.OpenFile(System.String,System.Int32,System.Int32,System.Int16,System.Int32)">
+            <summary>
+Opens an HDFS file.
+</summary>
+            <summary>
+Opens an HDFS file.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileSystem.GetHandlePointer">
+            <summary>
+Returns the HDFS Connection Handle.
+</summary>
+            <summary>
+Returns the HDFS Connection Handle Pointer.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileSystem.#ctor(System.IntPtr)">
+            <summary>
+Create the HDFS Connection Handle.
+</summary>
+        </member>
+        <member name="T:Microsoft.Hdfs.HdfsFileSystem">
+            <summary>
+Class for a connection to HDFS.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileStream.IsValid">
+            <summary>
+Determines if the HDFS file handle is valid.
+</summary>
+            <returns>Indicator for whether file handle is valid.</returns>
+            <summary>
+Determines if the HDFS file handle is valid.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileStream.GetInformation">
+            <summary>
+Gets the information associated with the File.
+</summary>
+            <returns>File Information.</returns>
+            <summary>
+Gets the information associated with the File.
+</summary>
+            <returns>File Information.</returns>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileStream.SetTimes(System.DateTime,System.DateTime)">
+            <summary>
+Modifies the File Modified and Last Accessed Time.
+</summary>
+            <param name="modifiedTime">The modified time.</param>
+            <param name="accessedTime">The last accessed time.</param>
+            <returns>Indicator for whether the file modification was successful.</returns>
+            <exception cref="T:System.IO.IOException">Thrown when the Set fails.</exception>
+            <summary>
+Modifies the File Modified and Last Accessed Time.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileStream.Chmod(System.Int16)">
+            <summary>
+Performs a chmod of the HDFS File.
+</summary>
+            <param name="mode">The mode bitmask.</param>
+            <returns>Indicator for whether the chmod was successful.</returns>
+            <exception cref="T:System.IO.IOException">Thrown when Chmod fails.</exception>
+            <summary>
+Performs a chmod of the HDFS File.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileStream.Chown(System.String,System.String)">
+            <summary>
+Performs a chown of the HDFS File.
+</summary>
+            <param name="owner">The new owner.</param>
+            <param name="group">The new group.</param>
+            <returns>Indicator for whether the chown was successful.</returns>
+            <exception cref="T:System.IO.IOException">Thrown when Chown fails.</exception>
+            <summary>
+Performs a chown of the HDFS File.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileStream.PositionalReadByte(System.Int32)">
+            <summary>
+Reads a single byte from a HDFS file from a specified position.
+</summary>
+            <param name="position">The file read starting position.</param>
+            <returns>Number of Bytes read.</returns>
+            <exception cref="T:System.NotSupportedException">Thrown when Stream does not support this operation.</exception>
+            <summary>
+Reads a single byte from a HDFS file from a specified position.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileStream.PositionalRead(System.Byte[],System.Int32,System.Int32,System.Int32)">
+            <summary>
+Reads bytes from a HDFS file from a specified position.
+</summary>
+            <param name="bytes">The byte array to populate.</param>
+            <param name="position">The file read starting position.</param>
+            <param name="offset">The byte array starting position.</param>
+            <param name="len">The byte array length.</param>
+            <returns>Number of Bytes read.</returns>
+            <exception cref="T:System.NotSupportedException">Thrown when Stream does not support this operation.</exception>
+            <summary>
+Reads bytes from a HDFS file from a specified position.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileStream.WriteByte(System.Byte)">
+            <summary>
+Writes a byte to the current position in the stream and advances the position within the stream by one byte.
+</summary>
+            <param name="value">The byte to write.</param>
+            <exception cref="T:System.NotSupportedException">Thrown when Stream does not support this operation.</exception>
+            <summary>
+Writes a byte to the current position in the stream and advances the position within the stream by one byte.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileStream.Write(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+Writes a sequence of bytes to the current stream and advances the current position within this stream by the number of bytes written.
+</summary>
+            <param name="buffer">The byte array to write to the stream.</param>
+            <param name="offset">The byte array starting position.</param>
+            <param name="count">The number of bytes to write.</param>
+            <exception cref="T:System.NotSupportedException">Thrown when Stream does not support this operation.</exception>
+            <summary>
+Writes a sequence of bytes to the current stream and advances the current position within this stream by the number of bytes written.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileStream.SetLength(System.Int64)">
+            <summary>
+Sets the length of the current stream.
+Not supported for the HDFS File Stream.
+</summary>
+            <param name="value">The length to set for the stream.</param>
+            <exception cref="T:System.InvalidOperationException">Thrown when the Set Length is called as operation not supported.</exception>
+            <summary>
+Sets the length of the current stream.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileStream.Seek(System.Int64,System.IO.SeekOrigin)">
+            <summary>
+Sets the position within the current stream.
+</summary>
+            <param name="offset">The position to set within the stream.</param>
+            <param name="origin">The Origin from which to Seek.</param>
+            <returns>Position set within the file.</returns>
+            <exception cref="T:System.NotSupportedException">Thrown when Stream does not support this operation.</exception>
+            <summary>
+Sets the position within the current stream.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileStream.ReadByte">
+            <summary>
+Reads a byte from the stream and advances the position within the stream by one byte, or returns -1 if at the end of the stream.
+</summary>
+            <returns>Value of bytes read.</returns>
+            <exception cref="T:System.NotSupportedException">Thrown when Stream does not support this operation.</exception>
+            <summary>
+Reads a byte from the stream and advances the position within the stream by one byte, or returns -1 if at the end of the stream.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileStream.Read(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+Reads a sequence of bytes from the current stream and advances the position within the stream by the number of bytes read.
+</summary>
+            <param name="buffer">The byte array to populate.</param>
+            <param name="offset">The byte array starting position.</param>
+            <param name="count">The number of bytes to write.</param>
+            <returns>The number of bytes read.</returns>
+            <exception cref="T:System.NotSupportedException">Thrown when Stream does not support this operation.</exception>
+            <summary>
+Reads a sequence of bytes from the current stream and advances the position within the stream by the number of bytes read.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileStream.Flush">
+            <summary>
+Clears all buffers for this stream and causes any buffered data to be written.
+</summary>
+            <exception cref="T:System.NotSupportedException">Thrown when Stream does not support this operation.</exception>
+            <summary>
+Clears all buffers for this stream and causes any buffered data to be written.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileStream.CopyTo(System.IO.Stream,System.Int32)">
+            <summary>
+Reads all the bytes from the current stream and writes them to a destination stream, using a specified buffer size.
+</summary>
+            <param name="destination">The stream to copy File Stream into.</param>
+            <param name="bufferSize">The bufffer size to use for copying the stream.</param>
+            <exception cref="T:System.NotSupportedException">Thrown when Stream does not support this operation.</exception>
+            <summary>
+Reads all the bytes from the current stream and writes them to a destination stream, using a specified buffer size.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileStream.CopyTo(System.IO.Stream)">
+            <summary>
+Reads the bytes from the current stream and writes them to the destination stream.
+</summary>
+            <param name="destination">The stream to copy File Stream into.</param>
+            <exception cref="T:System.NotSupportedException">Thrown when Stream does not support this operation.</exception>
+            <summary>
+Reads the bytes from the current stream and writes them to the destination stream.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileStream.Close">
+            <summary>
+Closes the current stream and releases any resources
+</summary>
+            <summary>
+Closes the current stream and releases any resources
+</summary>
+        </member>
+        <member name="P:Microsoft.Hdfs.HdfsFileStream.Name">
+            <summary>
+Gets the original path specified for the file.
+</summary>
+        </member>
+        <member name="P:Microsoft.Hdfs.HdfsFileStream.WriteTimeout">
+            <summary>
+Gets or sets a value, in miliseconds, that determines how long the stream will attempt to write before timing out.
+</summary>
+        </member>
+        <member name="P:Microsoft.Hdfs.HdfsFileStream.ReadTimeout">
+            <summary>
+Gets or sets a value, in miliseconds, that determines how long the stream will attempt to read before timing out. 
+</summary>
+        </member>
+        <member name="P:Microsoft.Hdfs.HdfsFileStream.Position">
+            <summary>
+Gets or sets the position within the current stream.
+</summary>
+        </member>
+        <member name="P:Microsoft.Hdfs.HdfsFileStream.Length">
+            <summary>
+Gets the length in bytes of the stream.
+</summary>
+        </member>
+        <member name="P:Microsoft.Hdfs.HdfsFileStream.CanWrite">
+            <summary>
+Gets a value indicating whether the current stream supports writing.
+</summary>
+        </member>
+        <member name="P:Microsoft.Hdfs.HdfsFileStream.CanTimeout">
+            <summary>
+Gets a value that determines whether the current stream can time out.
+</summary>
+        </member>
+        <member name="P:Microsoft.Hdfs.HdfsFileStream.CanSeek">
+            <summary>
+Gets a value indicating whether the current stream supports seeking.
+</summary>
+        </member>
+        <member name="P:Microsoft.Hdfs.HdfsFileStream.CanRead">
+            <summary>
+Gets a value indicating whether the current stream supports reading.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileStream.Dispose">
+            <summary>
+Destroys the HDFS File Stream.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileStream.Finalize">
+            <summary>
+Disposes of the HDFS File Stream.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileStream.#ctor(System.String,System.IntPtr,hdfsFile_internal*,System.Boolean)">
+            <summary>
+Create the HDFS File Stream.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileStream.GetConnection">
+            <summary>
+Returns the HDFS Connection Handle.
+</summary>
+            <summary>
+Gets a Connection Handle.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileStream.GetFile">
+            <summary>
+Gets a HDFS File from a Handle.
+</summary>
+            <summary>
+Gets a HDFS File from a Handle.
+</summary>
+        </member>
+        <member name="T:Microsoft.Hdfs.HdfsFileStream">
+            <summary>
+Class for a connection to HDFS file.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileInfoEntries.get_Entries">
+            <summary>
+Gets the List of HdfsFileInfoEntry elements.
+</summary>
+        </member>
+        <member name="P:Microsoft.Hdfs.HdfsFileInfoEntries.Entries">
+            <summary>
+Get the List of FileInfoEntry elements.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileInfoEntries.Dispose">
+            <summary>
+Destroys the HDFS File Info Entries.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileInfoEntries.Finalize">
+            <summary>
+Disposes of the HDFS File Info Entries.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileInfoEntries.#ctor(hdfsFileInfo*,System.Int32)">
+            <summary>
+Create the File Info Entries.
+</summary>
+        </member>
+        <member name="T:Microsoft.Hdfs.HdfsFileInfoEntries">
+            <summary>
+Class containing the list of FileInfoEntries.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.ConfigureIsotope.SetEnvironmentVariable(System.String,System.String,Microsoft.Hdfs.ConfigureIsotope.EnvironmentVariableMode,System.Boolean)">
+            <summary>
+  Sets an environment variable.
+</summary>
+            <param name="env">
+  The environment variable to be set
+</param>
+            <param name="newValue">
+  The new value of the environment variable, <paramref name="env" /></param>
+            <param name="mode">
+  The mode in which to set <paramref name="newValue" />: append, prepend or overwrite
+</param>
+        </member>
+        <member name="M:Microsoft.Hdfs.ConfigureIsotope.FindFile(System.String,System.String)">
+            <summary>
+  Find a file in a directory matching a particular pattern.
+  If there are multiple files, returns the last file
+</summary>
+            <param name="path">
+  The path to be searched
+</param>
+            <param name="pattern">
+  The pattern to be matched
+</param>
+            <returns>
+  The file matching the given pattern
+</returns>
+        </member>
+        <member name="M:Microsoft.Hdfs.ConfigureIsotope.FindJre(System.String)">
+            <summary>
+  Find the JRE subdirectory given a root directory
+</summary>
+            <param name="dir">
+  The root directory
+</param>
+            <returns>
+  The full patch of the JRE directory
+</returns>
+        </member>
+        <member name="M:Microsoft.Hdfs.ConfigureIsotope.FindJars">
+            <summary>
+  Find the dependent JAR files required for LIBHDFS
+  to work
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.ConfigureIsotope.FindJava">
+            <summary>
+  Find the JRE that is bundled with Isotope
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.ConfigureIsotope.FindIsotope">
+            <summary>
+  Use the HADOOP_HOME environment variable set by the Isotope installer
+  to probe for Isotope and Java
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.ConfigureIsotope.SetupPath">
+            <summary>
+  Set the PATH environment variable
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.ConfigureIsotope.SetupJavaHome">
+            <summary>
+  Set the JAVA_HOME environment variable
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.ConfigureIsotope.SetupClassPath">
+            <summary>
+  Set the CLASSPATH environment variable
+</summary>
+        </member>
+        <member name="T:Microsoft.Hdfs.ConfigureIsotope">
+            <summary>
+  A utility class for setting up environment variables needed
+  for LIBHDFS
+</summary>
+        </member>
+        <member name="P:Microsoft.Hdfs.HdfsFileInfoEntry.Permissions">
+            <summary>
+Get the HDFS File Infomation Permission.
+</summary>
+        </member>
+        <member name="P:Microsoft.Hdfs.HdfsFileInfoEntry.Group">
+            <summary>
+Get the HDFS File Infomation Group.
+</summary>
+        </member>
+        <member name="P:Microsoft.Hdfs.HdfsFileInfoEntry.Owner">
+            <summary>
+Get the HDFS File Infomation Owner.
+</summary>
+        </member>
+        <member name="P:Microsoft.Hdfs.HdfsFileInfoEntry.BlockSize">
+            <summary>
+Get the HDFS File Infomation Block Size.
+</summary>
+        </member>
+        <member name="P:Microsoft.Hdfs.HdfsFileInfoEntry.Replication">
+            <summary>
+Get the HDFS File Infomation Replication Count.
+</summary>
+        </member>
+        <member name="P:Microsoft.Hdfs.HdfsFileInfoEntry.Size">
+            <summary>
+Get the HDFS File Infomation Size.
+</summary>
+        </member>
+        <member name="P:Microsoft.Hdfs.HdfsFileInfoEntry.LastAccessed">
+            <summary>
+Get the HDFS File Infomation Last Accessed Date.
+</summary>
+        </member>
+        <member name="P:Microsoft.Hdfs.HdfsFileInfoEntry.LastModified">
+            <summary>
+Get the HDFS File Infomation Last Modified Date.
+</summary>
+        </member>
+        <member name="P:Microsoft.Hdfs.HdfsFileInfoEntry.Name">
+            <summary>
+Get the HDFS File Infomation Name.
+</summary>
+        </member>
+        <member name="P:Microsoft.Hdfs.HdfsFileInfoEntry.Kind">
+            <summary>
+Get the HDFS File Information Kind.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileInfoEntry.Dispose">
+            <summary>
+Destroys of the HDFS File Info Entry.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileInfoEntry.Finalize">
+            <summary>
+Disposes of the HDFS File Info Entry.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileInfoEntry.#ctor">
+            <summary>
+Create a new HDFS File Info Entry.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileInfoEntry.SetFileInfoEntryValues(hdfsFileInfo,Microsoft.Hdfs.HdfsFileInfoEntry)">
+            <summary>
+Converts from and unmanged to managed FileInfoEntry.
+</summary>
+            <returns>Managed HdfsFileInfoEntry.</returns>
+            <summary>
+Converts from and unmanged to managed FileInfoEntry.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileInfoEntry.GetUnixTime(System.DateTime)">
+            <summary>
+Converts a DateTime to UNIX tTime.
+</summary>
+            <returns>Unix Time.</returns>
+            <summary>
+Converts a DateTime to UNIX tTime.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileInfoEntry.GetDateTime(System.Int64)">
+            <summary>
+Converts a UNIX tTime to a DateTime.
+</summary>
+            <returns>Explicit DateTime.</returns>
+            <summary>
+Converts a UNIX tTime to a DateTime.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileInfoEntry.#ctor(hdfsFileInfo*)">
+            <summary>
+Internal constructor.
+</summary>
+        </member>
+        <member name="T:Microsoft.Hdfs.HdfsFileInfoEntry">
+            <summary>
+Class for all the properties of a FileInfoEntry.
+</summary>
+        </member>
+        <member name="T:Microsoft.Hdfs.HdfsFileAccess">
+            <summary>
+File Access Mode.
+Open, Write or Append.
+</summary>
+        </member>
+        <member name="T:Microsoft.Hdfs.HdfsFileInfoEntryKind">
+            <summary>
+File Info Entry Kind
+File or Directory
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileHandle.get_Name">
+            <summary>
+Gets the HDFS file path.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileHandle.IsValid">
+            <summary>
+Determines if the HDFS file handle is valid.
+</summary>
+            <returns>Indicator for whether file handle is valid.</returns>
+            <summary>
+Determines if the HDFS file handle is valid.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileHandle.Flush">
+            <summary>
+Flushes the contents of an HDFS file.
+</summary>
+            <returns>Indicator for whether the file was flushed.</returns>
+            <exception cref="T:System.IO.IOException">Thrown when Flush fails.</exception>
+            <summary>
+Flushes the contents of an HDFS file.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileHandle.Close">
+            <summary>
+Closes a HDFS file.
+</summary>
+            <exception cref="T:System.IO.IOException">Thrown when Close fails.</exception>
+            <summary>
+Closes a HDFS file.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileHandle.Available">
+            <summary>
+Determines what is availble in the HDFS file.
+</summary>
+            <returns>Available bytes within the file.</returns>
+            <summary>
+Determines what is availble in the HDFS file.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileHandle.Tell">
+            <summary>
+Determines the current offset of a HDFS file.
+</summary>
+            <returns>Current position within the file.</returns>
+            <summary>
+Determines the current offset of a HDFS file.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileHandle.Seek(System.Int64)">
+            <summary>
+Performs a seek of a HDFS file.
+</summary>
+            <returns>Position set within the file.</returns>
+            <summary>
+Performs a seek of a HDFS file.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileHandle.PositionalReadByte(System.Int32)">
+            <summary>
+Reads a single byte from a HDFS file from a specified position.
+</summary>
+            <param name="position">The file read starting position.</param>
+            <returns>Number of Bytes read.</returns>
+            <summary>
+Reads a single byte from a HDFS file from a specified position.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileHandle.PositionalReadBytes(System.Byte[],System.Int32,System.Int32,System.Int32)">
+            <summary>
+Reads bytes from a HDFS file from a specified position.
+</summary>
+            <param name="bytes">The byte array to populate.</param>
+            <param name="position">The file read starting position.</param>
+            <param name="offset">The byte array starting position.</param>
+            <param name="len">The byte array length.</param>
+            <returns>Number of Bytes read.</returns>
+            <summary>
+Reads bytes from a HDFS file from a specified position.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileHandle.ReadLine">
+            <summary>
+Reads a text line from a HDFS file.
+</summary>
+            <returns>Number of Bytes read.</returns>
+            <summary>
+Reads a text line from a HDFS file.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileHandle.ReadByte">
+            <summary>
+Reads a single byte from a HDFS file.
+</summary>
+            <returns>Value of bytes read.</returns>
+            <summary>
+Reads a single byte from a HDFS file.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileHandle.ReadBytes(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+Reads bytes from a HDFS file.
+</summary>
+            <param name="bytes">The byte array to populate.</param>
+            <param name="offset">The byte array starting position.</param>
+            <param name="len">The byte array length.</param>
+            <returns>Number of Bytes read.</returns>
+            <summary>
+Reads bytes from a HDFS file.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileHandle.WriteLine(System.String)">
+            <summary>
+Performs a write of a text line to the HDFS file.
+</summary>
+            <param name="inputline">The text line to write.</param>
+            <returns>Number of Bytes written.</returns>
+            <summary>
+Performs a write of a text line to the HDFS file.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileHandle.WriteByte(System.ValueType!System.Byte!System.Runtime.CompilerServices.IsBoxed)">
+            <summary>
+Performs a write of a single byte to the HDFS file.
+</summary>
+            <param name="inputbyte">The byte to write.</param>
+            <returns>Number of Bytes written.</returns>
+            <summary>
+Performs a write of a single byte to the HDFS file.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileHandle.WriteBytes(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+Performs a write of bytes to the HDFS file.
+</summary>
+            <param name="bytes">The bytes to write.</param>
+            <param name="pos">The byte array starting position.</param>
+            <param name="len">The byte array length.</param>
+            <returns>Number of Bytes written.</returns>
+            <summary>
+Performs a write of bytes to the HDFS file.
+</summary>
+        </member>
+        <member name="P:Microsoft.Hdfs.HdfsFileHandle.Name">
+            <summary>
+Gets the HDFS file path.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileHandle.Dispose">
+            <summary>
+Destroys the HDFS File Handle.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileHandle.Finalize">
+            <summary>
+Disposes of the HDFS File Handle.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileHandle.#ctor(System.String,System.IntPtr,hdfsFile_internal*)">
+            <summary>
+Create the HDFS File Handle.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileHandle.GetConnection">
+            <summary>
+Returns the HDFS Connection Handle.
+</summary>
+            <summary>
+Gets a Connection Handle.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.HdfsFileHandle.GetFile">
+            <summary>
+Gets a HDFS File from a Handle.
+</summary>
+            <summary>
+Gets a HDFS File from a Handle.
+</summary>
+        </member>
+        <member name="T:Microsoft.Hdfs.HdfsFileHandle">
+            <summary>
+Class for a connection to HDFS file.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.ThrowNotSupportedIfFalse(System.Boolean,System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*)">
+            <summary>
+Throws an argument exception if value not correct.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.ThrowArgIfFalse(System.Boolean,System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*,System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*)">
+            <summary>
+Throws an argument exception if value not correct.
+</summary>
+        </member>
+        <member name="M:Microsoft.Hdfs.ThrowIoIfFalse(System.Boolean,System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte!System.Runtime.CompilerServices.IsConst*)">
+            <summary>
+Throws an exception if an HDFS error occured.
+</summary>
+        </member>
+    </members>
+</doc>
