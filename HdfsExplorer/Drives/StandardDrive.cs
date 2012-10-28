@@ -13,11 +13,11 @@ namespace HdfsExplorer.Drives
             _driveInfo = driveInfo;
         }
 
-        public string Key   
+        public string Key
         {
             get
             {
-                return _driveInfo.Name + "|Standard";
+                return _driveInfo.Name;
             }
         }
 
@@ -52,22 +52,48 @@ namespace HdfsExplorer.Drives
 
         public List<DriveEntry> GetFiles(string path)
         {
-            return Directory.GetFiles(path)
-                .Select(file => new DriveEntry
-                    {
-                        Key = file,
-                        Name = file.Substring(file.LastIndexOf('\\') + 1)
-                    }).ToList();
+            if (!_driveInfo.IsReady) return null;
+
+            return (from file in Directory.GetFiles(path)
+                    let info = new FileInfo(file)
+                    select new DriveEntry
+                        {
+                            Key = file,
+                            Name = file.Substring(file.LastIndexOf('\\') + 1), 
+                            Type = DriveEntryType.File, 
+                            Size = info.Length,
+                            LastAccessed = info.LastAccessTime,
+                            LastModified = info.LastWriteTime,
+                        }).ToList();
         }
 
         public List<DriveEntry> GetDirectories(string path)
         {
-            return Directory.GetDirectories(path)
-                .Select(directory => new DriveEntry
-                    {
-                        Key = directory,
-                        Name = directory.Substring(directory.LastIndexOf('\\') + 1)
-                    }).ToList();
+            if (!_driveInfo.IsReady) return null;
+
+            return (from directory in Directory.GetDirectories(path)
+                    let info = new DirectoryInfo(directory)
+                    select new DriveEntry
+                        {
+                            Key = directory,
+                            Name = directory.Substring(directory.LastIndexOf('\\') + 1),
+                            Type = DriveEntryType.Directory,
+                            Size = 0,
+                            LastAccessed = info.LastAccessTime,
+                            LastModified = info.LastWriteTime,
+                        }).ToList();
+        }
+
+        public List<DriveEntry> GetDriveEntries(string path)
+        {
+            var driveEntries = new List<DriveEntry>(GetDirectories(path));
+            driveEntries.AddRange(GetFiles(path));
+            return driveEntries;
+        }
+
+        public void DeleteFile(string file)
+        {
+            File.Delete(file);
         }
     }
 }

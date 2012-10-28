@@ -12,5 +12,8 @@ namespace HdfsExplorer.Drives
 
         List<DriveEntry> GetFiles(string path);
         List<DriveEntry> GetDirectories(string path);
+        List<DriveEntry> GetDriveEntries(string path);
+
+        void DeleteFile(string file);
     }
 }

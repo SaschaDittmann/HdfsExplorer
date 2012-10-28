@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Microsoft.Hdfs;
 
@@ -30,7 +31,7 @@ namespace HdfsExplorer.Drives
 
         public string Key
         {
-            get { return String.Format("hdfs://{0}:{1}/|Hdfs|{2}", _host, _port, _user); }
+            get { return String.Format("hdfs://{0}:{1}/|{2}", _host, _port, _user); }
         }
 
         public string Name
@@ -81,14 +82,11 @@ namespace HdfsExplorer.Drives
                 var files = new List<DriveEntry>();
                 using(var entries = fileSystem.ListDirectory(path))
                 {
-                    files.AddRange(
-                        entries.Entries
-                            .Where(e => e.Kind == HdfsFileInfoEntryKind.File)
-                            .Select(entry => new DriveEntry
-                                {
-                                    Key = entry.Name,
-                                    Name = entry.Name.Substring(entry.Name.LastIndexOf('/') + 1)
-                                }));
+                    if (entries.Entries != null)
+                        files.AddRange(
+                            entries.Entries
+                                .Where(e => e.Kind == HdfsFileInfoEntryKind.File)
+                                .Select(GetDriveEntryFromHdfsFileInfoEntry));
                 }
                 return files;
             }
@@ -104,24 +102,73 @@ namespace HdfsExplorer.Drives
                 var directories = new List<DriveEntry>();
                 using (var entries = fileSystem.ListDirectory(path))
                 {
-                    directories.AddRange(
-                        entries.Entries
-                            .Where(e => e.Kind == HdfsFileInfoEntryKind.Directory)
-                            .Select(entry => new DriveEntry
-                                {
-                                    Key = entry.Name,
-                                    Name = entry.Name.Substring(entry.Name.LastIndexOf('/') + 1)
-                                }));
+                    if (entries.Entries != null)
+                        directories.AddRange(
+                            entries.Entries
+                                .Where(e => e.Kind == HdfsFileInfoEntryKind.Directory)
+                                .Select(GetDriveEntryFromHdfsFileInfoEntry));
                 }
                 return directories;
             }
         }
 
+        public List<DriveEntry> GetDriveEntries(string path)
+        {
+            using (var fileSystem = GetHdfsFileSystemConnection())
+            {
+                if (!fileSystem.IsValid())
+                    return null;
+
+                var driveEntries = new List<DriveEntry>();
+                using (var entries = fileSystem.ListDirectory(path))
+                {
+                    if (entries.Entries!=null)
+                        driveEntries.AddRange(
+                            entries.Entries
+                                .Select(GetDriveEntryFromHdfsFileInfoEntry));
+                }
+                return driveEntries;
+            }
+        }
+
+        public Stream GetFileStream(string file)
+        {
+            using (var fileSystem = GetHdfsFileSystemConnection())
+            {
+                if (!fileSystem.IsValid() || !fileSystem.FileExists(file)) return null;
+                return fileSystem.OpenFileStream(file, HdfsFileAccess.Read);
+            }
+        }
+
+        public void DeleteFile(string file)
+        {
+            using (var fileSystem = GetHdfsFileSystemConnection())
+            {
+                if (!fileSystem.IsValid() || !fileSystem.FileExists(file)) return;
+                fileSystem.DeleteFile(file);
+            }
+        }
+
+        private static DriveEntry GetDriveEntryFromHdfsFileInfoEntry(HdfsFileInfoEntry entry)
+        {
+            return new DriveEntry
+                {
+                    Key = entry.Name,
+                    Name = entry.Name.Substring(entry.Name.LastIndexOf('/') + 1),
+                    Type = entry.Kind == HdfsFileInfoEntryKind.File
+                               ? DriveEntryType.File
+                               : DriveEntryType.Directory,
+                    Size = entry.Size,
+                    LastAccessed = entry.LastAccessed,
+                    LastModified = entry.LastModified,
+                };
+        }
+
         private HdfsFileSystem GetHdfsFileSystemConnection()
         {
             return String.IsNullOrEmpty(_user)
-                ? HdfsFileSystem.Connect(_host, _port)
-                : HdfsFileSystem.Connect(_host, _port, _user);
+                       ? HdfsFileSystem.Connect(_host, _port)
+                       : HdfsFileSystem.Connect(_host, _port, _user);
         }
     }
 }
