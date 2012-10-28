@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace HdfsExplorer.Drives
 {
@@ -14,6 +15,7 @@ namespace HdfsExplorer.Drives
         List<DriveEntry> GetDirectories(string path);
         List<DriveEntry> GetDriveEntries(string path);
 
+        BackgroundWorker GetFileTransferBackgroundWorker(string sourceFilePath, string targetPath);
         void DeleteFile(string file);
     }
 }

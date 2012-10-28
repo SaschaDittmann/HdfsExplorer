@@ -232,7 +232,19 @@ namespace HdfsExplorer
 
         private void StartFileTransfer(string targetDriveKey, string targetDirectoryKey)
         {
-            //TODO: Implement File Transfer
+            if (Clipboard.ContainsFileDropList())
+                new TransferFileForm(null, Clipboard.GetFileDropList(), _drives[targetDriveKey], targetDirectoryKey).Show();
+            else if (Clipboard.ContainsData("HdfsFileTransfer"))
+            {
+                var hdfsFileTransfer = Clipboard.GetData("HdfsFileTransfer") as StringCollection;
+                if (hdfsFileTransfer == null || hdfsFileTransfer.Count<2)
+                    return;
+                var driveKey = hdfsFileTransfer[0];
+                hdfsFileTransfer.RemoveAt(0);
+                var fileDropList = hdfsFileTransfer;
+
+                new TransferFileForm(_drives[driveKey], fileDropList, _drives[targetDriveKey], targetDirectoryKey).Show();
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using Microsoft.Hdfs;
@@ -162,6 +163,66 @@ namespace HdfsExplorer.Drives
                     LastAccessed = entry.LastAccessed,
                     LastModified = entry.LastModified,
                 };
+        }
+
+        public BackgroundWorker GetFileTransferBackgroundWorker(string sourceFilePath, string targetPath)
+        {
+            if (!sourceFilePath.StartsWith("hdfs://")) return null;
+            var backgroundWorker = new BackgroundWorker();
+            backgroundWorker.WorkerReportsProgress = true;
+            backgroundWorker.WorkerSupportsCancellation = true;
+
+            if (!targetPath.StartsWith("hdfs://"))
+            {
+                var targetFilePath = Path.Combine(targetPath,
+                                                  sourceFilePath.Substring(sourceFilePath.LastIndexOf('/') + 1));
+                
+                backgroundWorker.DoWork += (sender, args) =>
+                    {
+                        using (var fileSystem = GetHdfsFileSystemConnection())
+                        {
+                            if (!fileSystem.IsValid() || !fileSystem.FileExists(sourceFilePath)) return;
+
+                            using (var sourceFileHandle = fileSystem.OpenFileForRead(sourceFilePath))
+                            {
+                                var maxBytes = Convert.ToDouble(sourceFileHandle.Available());
+                                using(var targetFileHandle = File.Create(targetFilePath))
+                                {
+                                    while (sourceFileHandle.Available() > 0)
+                                    {
+                                        var bufferSize =
+                                            8192 < maxBytes - sourceFileHandle.Tell()
+                                                ? 8192
+                                                : Convert.ToInt32(maxBytes - sourceFileHandle.Tell());
+                                        var buffer = new byte[bufferSize];
+                                        
+                                        sourceFileHandle.ReadBytes(buffer, 0, bufferSize);
+                                        if (backgroundWorker.CancellationPending)
+                                        {
+                                            sourceFileHandle.Close();
+                                            targetFileHandle.Close();
+                                            File.Delete(targetFilePath);
+                                            return;
+                                        }
+
+                                        targetFileHandle.Write(buffer, 0, buffer.Length);
+                                        if (backgroundWorker.CancellationPending)
+                                        {
+                                            sourceFileHandle.Close();
+                                            targetFileHandle.Close();
+                                            File.Delete(targetFilePath);
+                                            return;
+                                        }
+
+                                        var progress = Convert.ToDouble(sourceFileHandle.Tell()) / maxBytes * 100.0;
+                                        backgroundWorker.ReportProgress(Convert.ToInt32(progress));
+                                    }
+                                }
+                            }
+                        }
+                    };
+            }
+            return backgroundWorker;
         }
 
         private HdfsFileSystem GetHdfsFileSystemConnection()

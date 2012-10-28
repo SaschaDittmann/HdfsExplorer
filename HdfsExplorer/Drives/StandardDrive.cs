@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 
@@ -89,6 +90,11 @@ namespace HdfsExplorer.Drives
             var driveEntries = new List<DriveEntry>(GetDirectories(path));
             driveEntries.AddRange(GetFiles(path));
             return driveEntries;
+        }
+
+        public BackgroundWorker GetFileTransferBackgroundWorker(string sourceFilePath, string targetFilePath)
+        {
+            throw new NotImplementedException();
         }
 
         public void DeleteFile(string file)
