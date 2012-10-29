@@ -114,6 +114,18 @@ namespace HdfsExplorer
             }
         }
 
+        private void LeftFileGridCellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (!(leftFileGrid.Rows[e.RowIndex].Cells[2].Value is DriveEntryType)) return;
+            var type = (DriveEntryType)leftFileGrid.Rows[e.RowIndex].Cells[2].Value;
+            if (type != DriveEntryType.Directory) return;
+
+            var key = leftFileGrid.Rows[e.RowIndex].Cells[0].Value.ToString();
+            var node = leftDirectoryTree.Nodes.Find(key, true);
+            if (node.Length == 1)
+                leftDirectoryTree.SelectedNode = node[0];
+        }
+
         private void LeftFileGridKeyPress(object sender, KeyPressEventArgs e)
         {
             switch (Convert.ToByte(e.KeyChar))
@@ -122,13 +134,16 @@ namespace HdfsExplorer
                     // Copy
                     _moveDriveEntriesInClipboard = false;
                     AddDriveEntriesToClipboard(_leftFileGridDriveKey, leftFileGrid);
+                    e.Handled = true;
                     break;
                 case 24:
                     _moveDriveEntriesInClipboard = true;
                     AddDriveEntriesToClipboard(_leftFileGridDriveKey, leftFileGrid);
+                    e.Handled = true;
                     break;
                 case 22:
                     StartFileTransfer(_leftFileGridDriveKey, _leftFileGridDirectoryKey);
+                    e.Handled = true;
                     break;
             }
         }
@@ -153,6 +168,18 @@ namespace HdfsExplorer
             }
         }
 
+        private void RightFileGridCellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (!(rightFileGrid.Rows[e.RowIndex].Cells[2].Value is DriveEntryType)) return;
+            var type = (DriveEntryType)rightFileGrid.Rows[e.RowIndex].Cells[2].Value;
+            if (type != DriveEntryType.Directory) return;
+
+            var key = rightFileGrid.Rows[e.RowIndex].Cells[0].Value.ToString();
+            var node = rightDirectoryTree.Nodes.Find(key, true);
+            if (node.Length == 1)
+                rightDirectoryTree.SelectedNode = node[0];
+        }
+
         private void RightFileGridKeyPress(object sender, KeyPressEventArgs e)
         {
             switch (Convert.ToByte(e.KeyChar))
@@ -161,13 +188,16 @@ namespace HdfsExplorer
                     // Copy
                     _moveDriveEntriesInClipboard = false;
                     AddDriveEntriesToClipboard(_rightFileGridDriveKey, rightFileGrid);
+                    e.Handled = true;
                     break;
                 case 24:
                     _moveDriveEntriesInClipboard = true;
                     AddDriveEntriesToClipboard(_rightFileGridDriveKey, rightFileGrid);
+                    e.Handled = true;
                     break;
                 case 22:
                     StartFileTransfer(_rightFileGridDriveKey, _rightFileGridDirectoryKey);
+                    e.Handled = true;
                     break;
             }
         }
@@ -186,13 +216,16 @@ namespace HdfsExplorer
                     // Copy
                     _moveDriveEntriesInClipboard = false;
                     AddDirectoryToClipboard(drive.Key, treeView);
+                    e.Handled = true;
                     break;
                 case 24:
                     _moveDriveEntriesInClipboard = true;
                     AddDirectoryToClipboard(drive.Key, treeView);
+                    e.Handled = true;
                     break;
                 case 22:
                     StartFileTransfer(drive.Key, treeView.SelectedNode.Name);
+                    e.Handled = true;
                     break;
             }
             
@@ -298,8 +331,23 @@ namespace HdfsExplorer
             else 
                 return;
 
-            new FileTransferForm(_drives[driveKey], fileDropList, 
-                _drives[targetDriveKey], targetDirectoryKey).Show();
+            var form = new FileTransferForm(_drives[driveKey], fileDropList, 
+                _drives[targetDriveKey], targetDirectoryKey);
+            form.Closed += (s, e) =>
+                {
+                    _driveEntryCache.Remove(targetDirectoryKey);
+                    if (_leftFileGridDirectoryKey == targetDirectoryKey
+                        && leftDirectoryTree.SelectedNode != null)
+                        RefreshDriveEntries(_drives[targetDriveKey],
+                                            leftDirectoryTree.SelectedNode,
+                                            leftFileGrid, true);
+                    if (_rightFileGridDirectoryKey == targetDirectoryKey
+                        && rightDirectoryTree.SelectedNode != null)
+                        RefreshDriveEntries(_drives[targetDriveKey],
+                                            rightDirectoryTree.SelectedNode,
+                                            rightFileGrid, true);
+                };
+            form.Show();
         }
     }
 }

@@ -29,6 +29,12 @@
         private void InitializeComponent()
         {
             this.leftFileGrid = new System.Windows.Forms.DataGridView();
+            this.leftDirectoryTree = new System.Windows.Forms.TreeView();
+            this.mainSplitContainer = new System.Windows.Forms.SplitContainer();
+            this.leftSplitContainer = new System.Windows.Forms.SplitContainer();
+            this.rightSplitContainer = new System.Windows.Forms.SplitContainer();
+            this.rightDirectoryTree = new System.Windows.Forms.TreeView();
+            this.rightFileGrid = new System.Windows.Forms.DataGridView();
             this.LeftKeyColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LeftNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LeftLastModifiedColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -36,12 +42,6 @@
             this.LeftTypeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LeftSizeTextColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LeftSizeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.leftDirectoryTree = new System.Windows.Forms.TreeView();
-            this.mainSplitContainer = new System.Windows.Forms.SplitContainer();
-            this.leftSplitContainer = new System.Windows.Forms.SplitContainer();
-            this.rightSplitContainer = new System.Windows.Forms.SplitContainer();
-            this.rightDirectoryTree = new System.Windows.Forms.TreeView();
-            this.rightFileGrid = new System.Windows.Forms.DataGridView();
             this.RightKeyColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RightNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RightLastModifiedColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -85,64 +85,8 @@
             this.leftFileGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.leftFileGrid.Size = new System.Drawing.Size(332, 562);
             this.leftFileGrid.TabIndex = 0;
+            this.leftFileGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.LeftFileGridCellDoubleClick);
             this.leftFileGrid.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.LeftFileGridKeyPress);
-            // 
-            // LeftKeyColumn
-            // 
-            this.LeftKeyColumn.DataPropertyName = "Key";
-            this.LeftKeyColumn.HeaderText = "Key";
-            this.LeftKeyColumn.Name = "LeftKeyColumn";
-            this.LeftKeyColumn.Visible = false;
-            this.LeftKeyColumn.Width = 31;
-            // 
-            // LeftNameColumn
-            // 
-            this.LeftNameColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.LeftNameColumn.DataPropertyName = "Name";
-            this.LeftNameColumn.HeaderText = "Name";
-            this.LeftNameColumn.Name = "LeftNameColumn";
-            // 
-            // LeftLastModifiedColumn
-            // 
-            this.LeftLastModifiedColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.LeftLastModifiedColumn.DataPropertyName = "LastModified";
-            this.LeftLastModifiedColumn.HeaderText = "Date modified";
-            this.LeftLastModifiedColumn.Name = "LeftLastModifiedColumn";
-            this.LeftLastModifiedColumn.ReadOnly = true;
-            this.LeftLastModifiedColumn.Width = 97;
-            // 
-            // LeftLastAccessedColumn
-            // 
-            this.LeftLastAccessedColumn.DataPropertyName = "LastAccessed";
-            this.LeftLastAccessedColumn.HeaderText = "Date accessed";
-            this.LeftLastAccessedColumn.Name = "LeftLastAccessedColumn";
-            this.LeftLastAccessedColumn.Visible = false;
-            this.LeftLastAccessedColumn.Width = 104;
-            // 
-            // LeftTypeColumn
-            // 
-            this.LeftTypeColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.LeftTypeColumn.DataPropertyName = "Type";
-            this.LeftTypeColumn.HeaderText = "Type";
-            this.LeftTypeColumn.Name = "LeftTypeColumn";
-            this.LeftTypeColumn.ReadOnly = true;
-            this.LeftTypeColumn.Width = 56;
-            // 
-            // LeftSizeTextColumn
-            // 
-            this.LeftSizeTextColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.LeftSizeTextColumn.DataPropertyName = "SizeText";
-            this.LeftSizeTextColumn.HeaderText = "Size";
-            this.LeftSizeTextColumn.Name = "LeftSizeTextColumn";
-            this.LeftSizeTextColumn.Width = 52;
-            // 
-            // LeftSizeColumn
-            // 
-            this.LeftSizeColumn.DataPropertyName = "Size";
-            this.LeftSizeColumn.HeaderText = "Size_Org";
-            this.LeftSizeColumn.Name = "LeftSizeColumn";
-            this.LeftSizeColumn.Visible = false;
-            this.LeftSizeColumn.Width = 75;
             // 
             // leftDirectoryTree
             // 
@@ -239,13 +183,77 @@
             this.rightFileGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.rightFileGrid.Size = new System.Drawing.Size(332, 562);
             this.rightFileGrid.TabIndex = 2;
+            this.rightFileGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.RightFileGridCellDoubleClick);
             this.rightFileGrid.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RightFileGridKeyPress);
+            // 
+            // LeftKeyColumn
+            // 
+            this.LeftKeyColumn.DataPropertyName = "Key";
+            this.LeftKeyColumn.HeaderText = "Key";
+            this.LeftKeyColumn.Name = "LeftKeyColumn";
+            this.LeftKeyColumn.ReadOnly = true;
+            this.LeftKeyColumn.Visible = false;
+            this.LeftKeyColumn.Width = 31;
+            // 
+            // LeftNameColumn
+            // 
+            this.LeftNameColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.LeftNameColumn.DataPropertyName = "Name";
+            this.LeftNameColumn.HeaderText = "Name";
+            this.LeftNameColumn.Name = "LeftNameColumn";
+            this.LeftNameColumn.ReadOnly = true;
+            // 
+            // LeftLastModifiedColumn
+            // 
+            this.LeftLastModifiedColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.LeftLastModifiedColumn.DataPropertyName = "LastModified";
+            this.LeftLastModifiedColumn.HeaderText = "Date modified";
+            this.LeftLastModifiedColumn.Name = "LeftLastModifiedColumn";
+            this.LeftLastModifiedColumn.ReadOnly = true;
+            this.LeftLastModifiedColumn.Width = 97;
+            // 
+            // LeftLastAccessedColumn
+            // 
+            this.LeftLastAccessedColumn.DataPropertyName = "LastAccessed";
+            this.LeftLastAccessedColumn.HeaderText = "Date accessed";
+            this.LeftLastAccessedColumn.Name = "LeftLastAccessedColumn";
+            this.LeftLastAccessedColumn.ReadOnly = true;
+            this.LeftLastAccessedColumn.Visible = false;
+            this.LeftLastAccessedColumn.Width = 104;
+            // 
+            // LeftTypeColumn
+            // 
+            this.LeftTypeColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.LeftTypeColumn.DataPropertyName = "Type";
+            this.LeftTypeColumn.HeaderText = "Type";
+            this.LeftTypeColumn.Name = "LeftTypeColumn";
+            this.LeftTypeColumn.ReadOnly = true;
+            this.LeftTypeColumn.Width = 56;
+            // 
+            // LeftSizeTextColumn
+            // 
+            this.LeftSizeTextColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.LeftSizeTextColumn.DataPropertyName = "SizeText";
+            this.LeftSizeTextColumn.HeaderText = "Size";
+            this.LeftSizeTextColumn.Name = "LeftSizeTextColumn";
+            this.LeftSizeTextColumn.ReadOnly = true;
+            this.LeftSizeTextColumn.Width = 52;
+            // 
+            // LeftSizeColumn
+            // 
+            this.LeftSizeColumn.DataPropertyName = "Size";
+            this.LeftSizeColumn.HeaderText = "Size_Org";
+            this.LeftSizeColumn.Name = "LeftSizeColumn";
+            this.LeftSizeColumn.ReadOnly = true;
+            this.LeftSizeColumn.Visible = false;
+            this.LeftSizeColumn.Width = 75;
             // 
             // RightKeyColumn
             // 
             this.RightKeyColumn.DataPropertyName = "Key";
             this.RightKeyColumn.HeaderText = "Key";
             this.RightKeyColumn.Name = "RightKeyColumn";
+            this.RightKeyColumn.ReadOnly = true;
             this.RightKeyColumn.Visible = false;
             this.RightKeyColumn.Width = 31;
             // 
@@ -255,6 +263,7 @@
             this.RightNameColumn.DataPropertyName = "Name";
             this.RightNameColumn.HeaderText = "Name";
             this.RightNameColumn.Name = "RightNameColumn";
+            this.RightNameColumn.ReadOnly = true;
             // 
             // RightLastModifiedColumn
             // 
@@ -270,6 +279,7 @@
             this.RightLastAccessedColumn.DataPropertyName = "LastAccessed";
             this.RightLastAccessedColumn.HeaderText = "Date accessed";
             this.RightLastAccessedColumn.Name = "RightLastAccessedColumn";
+            this.RightLastAccessedColumn.ReadOnly = true;
             this.RightLastAccessedColumn.Visible = false;
             this.RightLastAccessedColumn.Width = 104;
             // 
@@ -288,6 +298,7 @@
             this.RightSizeTextColumn.DataPropertyName = "SizeText";
             this.RightSizeTextColumn.HeaderText = "Size";
             this.RightSizeTextColumn.Name = "RightSizeTextColumn";
+            this.RightSizeTextColumn.ReadOnly = true;
             this.RightSizeTextColumn.Width = 52;
             // 
             // RightSizeColumn
@@ -295,6 +306,7 @@
             this.RightSizeColumn.DataPropertyName = "Size";
             this.RightSizeColumn.HeaderText = "Size_Org";
             this.RightSizeColumn.Name = "RightSizeColumn";
+            this.RightSizeColumn.ReadOnly = true;
             this.RightSizeColumn.Visible = false;
             this.RightSizeColumn.Width = 75;
             // 
