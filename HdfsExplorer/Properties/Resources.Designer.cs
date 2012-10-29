@@ -151,6 +151,15 @@ namespace HdfsExplorer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; folder added to the Clipboard..
+        /// </summary>
+        internal static string FolderAddedToClipboardMessage {
+            get {
+                return ResourceManager.GetString("FolderAddedToClipboardMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to HDFS Drive does already exist..
         /// </summary>
         internal static string HdfsDriveExistsMessage {
@@ -169,11 +178,47 @@ namespace HdfsExplorer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} item(s) added to the Clipboard..
+        /// </summary>
+        internal static string ItemsAddedToClipboardMessage {
+            get {
+                return ResourceManager.GetString("ItemsAddedToClipboardMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Loading....
         /// </summary>
         internal static string LoadingText {
             get {
                 return ResourceManager.GetString("LoadingText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove.
+        /// </summary>
+        internal static string RemoveButtonText {
+            get {
+                return ResourceManager.GetString("RemoveButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove HDFS Server.
+        /// </summary>
+        internal static string RemoveHdfsServerCaption {
+            get {
+                return ResourceManager.GetString("RemoveHdfsServerCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you really want to remove the HDFS server &apos;{0}&apos;?.
+        /// </summary>
+        internal static string RemoveHdfsServerQuestion {
+            get {
+                return ResourceManager.GetString("RemoveHdfsServerQuestion", resourceCulture);
             }
         }
     }

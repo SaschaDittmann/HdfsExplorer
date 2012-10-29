@@ -117,6 +117,9 @@ namespace HdfsExplorer
 
             try
             {
+                if (fileTransferParameters.SourceFilePath == fileTransferParameters.TargetFilePath)
+                    return;
+
                 using (var source = fileTransferParameters.SourceDrive.OpenFileStreamForRead(
                     fileTransferParameters.SourceFilePath))
                 {

@@ -192,6 +192,11 @@ namespace HdfsExplorer.Drives
             Directory.Delete(path);
         }
 
+        public override string ToString()
+        {
+            return Label;
+        }
+
         private bool _disposed;
 
         protected virtual void Dispose(bool disposing)

@@ -47,7 +47,9 @@ namespace HdfsExplorer.Drives
         {
             get
             {
-                return String.Format("{0} [{1}:{2}]", _name, _host, _port);
+                return String.IsNullOrEmpty(_user)
+                           ? String.Format("{0} [{1}:{2}]", _name, _host, _port)
+                           : String.Format("{0} [{1}:{2} ({3})]", _name, _host, _port, _user);
             }
         }
 
@@ -301,6 +303,11 @@ namespace HdfsExplorer.Drives
             return String.IsNullOrEmpty(_user)
                        ? HdfsFileSystem.Connect(_host, _port)
                        : HdfsFileSystem.Connect(_host, _port, _user);
+        }
+
+        public override string ToString()
+        {
+            return Label;
         }
 
         private bool _disposed;

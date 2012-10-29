@@ -31,21 +31,39 @@ namespace HdfsExplorer
 
         private void MainFormLoad(object sender, EventArgs e)
         {
-            _drives = new Dictionary<string, IDrive>();
-            _driveEntryCache = new Dictionary<string, List<DriveEntry>>();
-            AddStandardDrives();
-            AddHdfsDrives();
-            RefreshDirectoryTrees();
-            if (leftDirectoryTree.Nodes.Count > 0)
-                leftDirectoryTree.SelectedNode = leftDirectoryTree.Nodes[0];
-            if (rightDirectoryTree.Nodes.Count > 0)
-                rightDirectoryTree.SelectedNode = rightDirectoryTree.Nodes[0];
+            try
+            {
+                _drives = new Dictionary<string, IDrive>();
+                _driveEntryCache = new Dictionary<string, List<DriveEntry>>();
+                AddStandardDrives();
+                LoadHdfsDrives();
+                RefreshDirectoryTrees();
+                if (leftDirectoryTree.Nodes.Count > 0)
+                    leftDirectoryTree.SelectedNode = leftDirectoryTree.Nodes[0];
+                if (rightDirectoryTree.Nodes.Count > 0)
+                    rightDirectoryTree.SelectedNode = rightDirectoryTree.Nodes[0];
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, Resources.ErrorCaption,
+                                MessageBoxButtons.OK, MessageBoxIcon.Error,
+                                MessageBoxDefaultButton.Button1);
+            }
         }
 
         private void MainFormLeave(object sender, EventArgs e)
         {
-            foreach (var drive in _drives)
-                drive.Value.Dispose();
+            try
+            {
+                foreach (var drive in _drives)
+                    drive.Value.Dispose();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, Resources.ErrorCaption,
+                                MessageBoxButtons.OK, MessageBoxIcon.Error,
+                                MessageBoxDefaultButton.Button1);
+            }
         }
 
         private void RefreshDirectoryTrees()
@@ -63,22 +81,13 @@ namespace HdfsExplorer
 
         private void AddStandardDrives()
         {
-            try
+            foreach (var drive in DriveInfo.GetDrives().Select(drive => new StandardDrive(drive)))
             {
-                foreach (var drive in DriveInfo.GetDrives().Select(drive => new StandardDrive(drive)))
-                {
-                    _drives.Add(drive.Key, drive);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, Resources.ErrorCaption,
-                                MessageBoxButtons.OK, MessageBoxIcon.Error,
-                                MessageBoxDefaultButton.Button1);
+                _drives.Add(drive.Key, drive);
             }
         }
 
-        private void AddHdfsDrives()
+        private void LoadHdfsDrives()
         {
             try
             {
@@ -123,7 +132,8 @@ namespace HdfsExplorer
 
                     foreach (var drive in _drives
                         .Select(drive => drive.Value)
-                        .OfType<HdfsDrive>())
+                        .OfType<HdfsDrive>()
+                        .OrderBy(d => d.Label))
                     {
                         writer.WriteStartElement("HdfsServer");
                         writer.WriteAttributeString("name", drive.Name);
@@ -183,14 +193,23 @@ namespace HdfsExplorer
 
         private void LeftFileGridCellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (!(leftFileGrid.Rows[e.RowIndex].Cells[2].Value is DriveEntryType)) return;
-            var type = (DriveEntryType)leftFileGrid.Rows[e.RowIndex].Cells[2].Value;
-            if (type != DriveEntryType.Directory) return;
+            try
+            {
+                if (!(leftFileGrid.Rows[e.RowIndex].Cells[2].Value is DriveEntryType)) return;
+                var type = (DriveEntryType)leftFileGrid.Rows[e.RowIndex].Cells[2].Value;
+                if (type != DriveEntryType.Directory) return;
 
-            var key = leftFileGrid.Rows[e.RowIndex].Cells[0].Value.ToString();
-            var node = leftDirectoryTree.Nodes.Find(key, true);
-            if (node.Length == 1)
-                leftDirectoryTree.SelectedNode = node[0];
+                var key = leftFileGrid.Rows[e.RowIndex].Cells[0].Value.ToString();
+                var node = leftDirectoryTree.Nodes.Find(key, true);
+                if (node.Length == 1)
+                    leftDirectoryTree.SelectedNode = node[0];
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, Resources.ErrorCaption,
+                                MessageBoxButtons.OK, MessageBoxIcon.Error,
+                                MessageBoxDefaultButton.Button1);
+            }
         }
 
         private void LeftFileGridKeyPress(object sender, KeyPressEventArgs e)
@@ -198,7 +217,6 @@ namespace HdfsExplorer
             switch (Convert.ToByte(e.KeyChar))
             {
                 case 3:
-                    // Copy
                     _moveDriveEntriesInClipboard = false;
                     AddDriveEntriesToClipboard(_leftFileGridDriveKey, leftFileGrid);
                     e.Handled = true;
@@ -466,7 +484,7 @@ namespace HdfsExplorer
             }
         }
 
-        private static void AddDriveEntriesToClipboard(string driveKey, DataGridView grid)
+        private void AddDriveEntriesToClipboard(string driveKey, DataGridView grid)
         {
             if (grid.SelectedRows.Count == 0) return;
 
@@ -474,15 +492,18 @@ namespace HdfsExplorer
             fileDropList.AddRange((from DataGridViewRow row in grid.SelectedRows
                                    select row.Cells[0].Value.ToString()).ToArray());
             AddFileDropListToClipboard(driveKey, fileDropList);
+            mainStatusLabel.Text =
+                String.Format(Resources.ItemsAddedToClipboardMessage, fileDropList.Count);
         }
 
-        private static void AddDirectoryToClipboard(string driveKey, TreeView treeView)
+        private void AddDirectoryToClipboard(string driveKey, TreeView treeView)
         {
             if (treeView.SelectedNode == null) return;
 
-            AddFileDropListToClipboard(
-                driveKey,
-                new StringCollection {treeView.SelectedNode.Name.Split('|')[0]});
+            var folder = treeView.SelectedNode.Name.Split('|')[0];
+            AddFileDropListToClipboard(driveKey, new StringCollection {folder});
+            mainStatusLabel.Text =
+                String.Format(Resources.FolderAddedToClipboardMessage, folder);
         }
 
         private static void AddFileDropListToClipboard(string driveKey, StringCollection fileDropList)
@@ -600,7 +621,45 @@ namespace HdfsExplorer
         {
             try
             {
+                var selectionForm = new HdfsDriveSelectionForm(_drives
+                    .Select(d => d.Value)
+                    .OfType<HdfsDrive>()
+                    .ToList());
+                if (selectionForm.ShowDialog() != DialogResult.OK) return;
 
+                var currentDriveKey = selectionForm.SelectedDrive.Key;
+                var driveForm = new HdfsDriveForm {Drive = selectionForm.SelectedDrive};
+                if (driveForm.ShowDialog() != DialogResult.OK) return;
+
+                _drives.Remove(currentDriveKey);
+                var drive = driveForm.Drive;
+                if (!_drives.ContainsKey(drive.Key))
+                {
+                    _drives.Add(drive.Key, drive);
+                    StoreHdfsDrives();
+                    var nodes = leftDirectoryTree.Nodes.Find(currentDriveKey, false);
+                    if (nodes.Length == 1)
+                    {
+                        leftDirectoryTree.Nodes[nodes[0].Index].Name = drive.Key;
+                        leftDirectoryTree.Nodes[nodes[0].Index].Text = drive.Label;
+                        leftDirectoryTree.Nodes[nodes[0].Index].Nodes.Clear();
+                        leftDirectoryTree.Nodes[nodes[0].Index].Nodes.Add(Resources.LoadingText);
+                    }
+                    nodes = rightDirectoryTree.Nodes.Find(currentDriveKey, false);
+                    if (nodes.Length == 1)
+                    {
+                        rightDirectoryTree.Nodes[nodes[0].Index].Name = drive.Key;
+                        rightDirectoryTree.Nodes[nodes[0].Index].Text = drive.Label;
+                        rightDirectoryTree.Nodes[nodes[0].Index].Nodes.Clear();
+                        rightDirectoryTree.Nodes[nodes[0].Index].Nodes.Add(Resources.LoadingText);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show(Resources.HdfsDriveExistsMessage, Resources.ErrorCaption,
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error,
+                                    MessageBoxDefaultButton.Button1);
+                }
             }
             catch (Exception ex)
             {
@@ -614,7 +673,28 @@ namespace HdfsExplorer
         {
             try
             {
+                var selectionForm = new HdfsDriveSelectionForm(_drives
+                    .Select(d => d.Value)
+                    .OfType<HdfsDrive>()
+                    .ToList())
+                    {
+                        FormCaption = Resources.RemoveHdfsServerCaption,
+                        SelectButtonText = Resources.RemoveButtonText
+                    };
+                if (selectionForm.ShowDialog() != DialogResult.OK) return;
 
+                if (MessageBox.Show(
+                    String.Format(Resources.RemoveHdfsServerQuestion, selectionForm.SelectedDrive.Label),
+                    Resources.RemoveHdfsServerCaption,
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question,
+                    MessageBoxDefaultButton.Button2) != DialogResult.Yes)
+                    return;
+
+                _drives.Remove(selectionForm.SelectedDrive.Key);
+                StoreHdfsDrives();
+                leftDirectoryTree.Nodes.RemoveByKey(selectionForm.SelectedDrive.Key);
+                rightDirectoryTree.Nodes.RemoveByKey(selectionForm.SelectedDrive.Key);
             }
             catch (Exception ex)
             {

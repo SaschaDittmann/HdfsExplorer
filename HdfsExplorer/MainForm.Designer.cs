@@ -55,6 +55,7 @@
             this.editHdfsServerButton = new System.Windows.Forms.ToolStripButton();
             this.removeHdfsServerButton = new System.Windows.Forms.ToolStripButton();
             this.mainStatusStrip = new System.Windows.Forms.StatusStrip();
+            this.mainStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.leftFileGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).BeginInit();
             this.mainSplitContainer.Panel1.SuspendLayout();
@@ -70,6 +71,7 @@
             this.rightSplitContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.rightFileGrid)).BeginInit();
             this.mainToolStrip.SuspendLayout();
+            this.mainStatusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // leftFileGrid
@@ -367,11 +369,18 @@
             // 
             // mainStatusStrip
             // 
+            this.mainStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mainStatusLabel});
             this.mainStatusStrip.Location = new System.Drawing.Point(0, 540);
             this.mainStatusStrip.Name = "mainStatusStrip";
             this.mainStatusStrip.Size = new System.Drawing.Size(1008, 22);
             this.mainStatusStrip.TabIndex = 3;
             this.mainStatusStrip.Text = "statusStrip1";
+            // 
+            // mainStatusLabel
+            // 
+            this.mainStatusLabel.Name = "mainStatusLabel";
+            this.mainStatusLabel.Size = new System.Drawing.Size(0, 17);
             // 
             // MainForm
             // 
@@ -401,6 +410,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.rightFileGrid)).EndInit();
             this.mainToolStrip.ResumeLayout(false);
             this.mainToolStrip.PerformLayout();
+            this.mainStatusStrip.ResumeLayout(false);
+            this.mainStatusStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -434,6 +445,7 @@
         private System.Windows.Forms.ToolStripButton removeHdfsServerButton;
         private System.Windows.Forms.ToolStripButton editHdfsServerButton;
         private System.Windows.Forms.StatusStrip mainStatusStrip;
+        private System.Windows.Forms.ToolStripStatusLabel mainStatusLabel;
     }
 }
 
