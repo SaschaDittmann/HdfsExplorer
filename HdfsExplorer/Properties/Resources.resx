@@ -135,4 +135,10 @@
   <data name="DeleteDirectoryQuestion" xml:space="preserve">
     <value>Do you really want to delete the folder '{0}' and all its files?</value>
   </data>
+  <data name="DeleteFileCaption" xml:space="preserve">
+    <value>Delete File</value>
+  </data>
+  <data name="DeleteFileQuestion" xml:space="preserve">
+    <value>Do you really want to delete the file '{0}'?</value>
+  </data>
 </root>

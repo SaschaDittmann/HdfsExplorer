@@ -148,6 +148,25 @@ namespace HdfsExplorer
             }
         }
 
+        private void LeftFileGridKeyUp(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.KeyCode == Keys.Delete)
+                {
+                    DeleteFilesAndFoldersFromFileGrid(leftFileGrid, 
+                        _leftFileGridDriveKey, _leftFileGridDirectoryKey);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, Resources.ErrorCaption,
+                                MessageBoxButtons.OK, MessageBoxIcon.Error,
+                                MessageBoxDefaultButton.Button1);
+            }
+        }
+
+        
         private void RightDirectoryTreeAfterSelect(object sender, TreeViewEventArgs e)
         {
             try
@@ -201,6 +220,24 @@ namespace HdfsExplorer
                         StartFileTransfer(_rightFileGridDriveKey, _rightFileGridDirectoryKey);
                         e.Handled = true;
                         break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, Resources.ErrorCaption,
+                                MessageBoxButtons.OK, MessageBoxIcon.Error,
+                                MessageBoxDefaultButton.Button1);
+            }
+        }
+
+        private void RightFileGridKeyUp(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.KeyCode == Keys.Delete)
+                {
+                    DeleteFilesAndFoldersFromFileGrid(rightFileGrid,
+                        _rightFileGridDriveKey, _rightFileGridDirectoryKey);
                 }
             }
             catch (Exception ex)
@@ -271,7 +308,6 @@ namespace HdfsExplorer
 
                         drive.DeleteDirectory(treeView.SelectedNode.Name);
                         RefreshDriveEntries(drive.Key, treeView.SelectedNode.Parent.Name);
-                        
                     }
                 }
             }
@@ -358,7 +394,7 @@ namespace HdfsExplorer
             var rightNodes = rightDirectoryTree.Nodes.Find(directoryKey, true);
             if (rightNodes.Length == 1)
             {
-                rightDirectoryTree.SelectedNode = leftNodes[0];
+                rightDirectoryTree.SelectedNode = rightNodes[0];
                 RefreshDirectories(rightNodes[0]);
             }
         }
@@ -422,6 +458,43 @@ namespace HdfsExplorer
             form.Show();
         }
 
-        
+        private void DeleteFilesAndFoldersFromFileGrid(DataGridView grid, string driveKey, string directoryKey)
+        {
+            if (grid == null || grid.SelectedRows.Count == 0) return;
+            var drive = _drives[driveKey];
+            if (drive == null) return;
+            foreach (DataGridViewRow row in grid.SelectedRows)
+            {
+                var key = row.Cells[0].Value.ToString();
+                switch (drive.GetDriveEntryType(key))
+                {
+                    case DriveEntryType.Directory:
+                        if (MessageBox.Show(
+                            String.Format(Resources.DeleteDirectoryQuestion, key),
+                            Resources.DeleteDirectoryCaption,
+                            MessageBoxButtons.YesNo,
+                            MessageBoxIcon.Question,
+                            MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                        {
+                            drive.DeleteDirectory(key);
+                            row.Selected = false;
+                        }
+                        break;
+                    case DriveEntryType.File:
+                        if (MessageBox.Show(
+                            String.Format(Resources.DeleteFileQuestion, key),
+                            Resources.DeleteFileCaption,
+                            MessageBoxButtons.YesNo,
+                            MessageBoxIcon.Question,
+                            MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                        {
+                            drive.DeleteFile(key);
+                            row.Selected = false;
+                        }
+                        break;
+                }
+            }
+            RefreshDriveEntries(driveKey, directoryKey);
+        }
     }
 }

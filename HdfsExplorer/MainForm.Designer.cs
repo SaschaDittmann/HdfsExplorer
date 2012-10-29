@@ -87,6 +87,7 @@
             this.leftFileGrid.TabIndex = 0;
             this.leftFileGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.LeftFileGridCellDoubleClick);
             this.leftFileGrid.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.LeftFileGridKeyPress);
+            this.leftFileGrid.KeyUp += new System.Windows.Forms.KeyEventHandler(this.LeftFileGridKeyUp);
             // 
             // LeftKeyColumn
             // 
@@ -249,6 +250,7 @@
             this.rightFileGrid.TabIndex = 2;
             this.rightFileGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.RightFileGridCellDoubleClick);
             this.rightFileGrid.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RightFileGridKeyPress);
+            this.rightFileGrid.KeyUp += new System.Windows.Forms.KeyEventHandler(this.RightFileGridKeyUp);
             // 
             // RightKeyColumn
             // 
