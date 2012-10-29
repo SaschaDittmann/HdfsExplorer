@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.leftFileGrid = new System.Windows.Forms.DataGridView();
             this.LeftKeyColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LeftNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -49,6 +50,11 @@
             this.RightTypeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RightSizeTextColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RightSizeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mainToolStrip = new System.Windows.Forms.ToolStrip();
+            this.addHdfsServerButton = new System.Windows.Forms.ToolStripButton();
+            this.editHdfsServerButton = new System.Windows.Forms.ToolStripButton();
+            this.removeHdfsServerButton = new System.Windows.Forms.ToolStripButton();
+            this.mainStatusStrip = new System.Windows.Forms.StatusStrip();
             ((System.ComponentModel.ISupportInitialize)(this.leftFileGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).BeginInit();
             this.mainSplitContainer.Panel1.SuspendLayout();
@@ -63,6 +69,7 @@
             this.rightSplitContainer.Panel2.SuspendLayout();
             this.rightSplitContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.rightFileGrid)).BeginInit();
+            this.mainToolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // leftFileGrid
@@ -83,7 +90,7 @@
             this.leftFileGrid.Name = "leftFileGrid";
             this.leftFileGrid.RowHeadersVisible = false;
             this.leftFileGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.leftFileGrid.Size = new System.Drawing.Size(332, 562);
+            this.leftFileGrid.Size = new System.Drawing.Size(332, 509);
             this.leftFileGrid.TabIndex = 0;
             this.leftFileGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.LeftFileGridCellDoubleClick);
             this.leftFileGrid.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.LeftFileGridKeyPress);
@@ -157,7 +164,7 @@
             this.leftDirectoryTree.HideSelection = false;
             this.leftDirectoryTree.Location = new System.Drawing.Point(0, 0);
             this.leftDirectoryTree.Name = "leftDirectoryTree";
-            this.leftDirectoryTree.Size = new System.Drawing.Size(166, 562);
+            this.leftDirectoryTree.Size = new System.Drawing.Size(166, 509);
             this.leftDirectoryTree.TabIndex = 0;
             this.leftDirectoryTree.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.DirectoryTreeBeforeExpand);
             this.leftDirectoryTree.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.LeftDirectoryTreeBeforeSelect);
@@ -166,8 +173,10 @@
             // 
             // mainSplitContainer
             // 
-            this.mainSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainSplitContainer.Location = new System.Drawing.Point(0, 0);
+            this.mainSplitContainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.mainSplitContainer.Location = new System.Drawing.Point(0, 28);
             this.mainSplitContainer.Name = "mainSplitContainer";
             // 
             // mainSplitContainer.Panel1
@@ -177,7 +186,7 @@
             // mainSplitContainer.Panel2
             // 
             this.mainSplitContainer.Panel2.Controls.Add(this.rightSplitContainer);
-            this.mainSplitContainer.Size = new System.Drawing.Size(1008, 562);
+            this.mainSplitContainer.Size = new System.Drawing.Size(1008, 509);
             this.mainSplitContainer.SplitterDistance = 502;
             this.mainSplitContainer.TabIndex = 1;
             // 
@@ -194,7 +203,7 @@
             // leftSplitContainer.Panel2
             // 
             this.leftSplitContainer.Panel2.Controls.Add(this.leftFileGrid);
-            this.leftSplitContainer.Size = new System.Drawing.Size(502, 562);
+            this.leftSplitContainer.Size = new System.Drawing.Size(502, 509);
             this.leftSplitContainer.SplitterDistance = 166;
             this.leftSplitContainer.TabIndex = 0;
             // 
@@ -211,7 +220,7 @@
             // rightSplitContainer.Panel2
             // 
             this.rightSplitContainer.Panel2.Controls.Add(this.rightFileGrid);
-            this.rightSplitContainer.Size = new System.Drawing.Size(502, 562);
+            this.rightSplitContainer.Size = new System.Drawing.Size(502, 509);
             this.rightSplitContainer.SplitterDistance = 166;
             this.rightSplitContainer.TabIndex = 0;
             // 
@@ -221,7 +230,7 @@
             this.rightDirectoryTree.HideSelection = false;
             this.rightDirectoryTree.Location = new System.Drawing.Point(0, 0);
             this.rightDirectoryTree.Name = "rightDirectoryTree";
-            this.rightDirectoryTree.Size = new System.Drawing.Size(166, 562);
+            this.rightDirectoryTree.Size = new System.Drawing.Size(166, 509);
             this.rightDirectoryTree.TabIndex = 0;
             this.rightDirectoryTree.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.DirectoryTreeBeforeExpand);
             this.rightDirectoryTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.RightDirectoryTreeAfterSelect);
@@ -246,7 +255,7 @@
             this.rightFileGrid.Name = "rightFileGrid";
             this.rightFileGrid.RowHeadersVisible = false;
             this.rightFileGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.rightFileGrid.Size = new System.Drawing.Size(332, 562);
+            this.rightFileGrid.Size = new System.Drawing.Size(332, 509);
             this.rightFileGrid.TabIndex = 2;
             this.rightFileGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.RightFileGridCellDoubleClick);
             this.rightFileGrid.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RightFileGridKeyPress);
@@ -314,11 +323,63 @@
             this.RightSizeColumn.Visible = false;
             this.RightSizeColumn.Width = 75;
             // 
+            // mainToolStrip
+            // 
+            this.mainToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addHdfsServerButton,
+            this.editHdfsServerButton,
+            this.removeHdfsServerButton});
+            this.mainToolStrip.Location = new System.Drawing.Point(0, 0);
+            this.mainToolStrip.Name = "mainToolStrip";
+            this.mainToolStrip.Size = new System.Drawing.Size(1008, 25);
+            this.mainToolStrip.TabIndex = 2;
+            this.mainToolStrip.Text = "toolStrip1";
+            // 
+            // addHdfsServerButton
+            // 
+            this.addHdfsServerButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.addHdfsServerButton.Image = ((System.Drawing.Image)(resources.GetObject("addHdfsServerButton.Image")));
+            this.addHdfsServerButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.addHdfsServerButton.Name = "addHdfsServerButton";
+            this.addHdfsServerButton.Size = new System.Drawing.Size(23, 22);
+            this.addHdfsServerButton.Text = "Add HDFS Server";
+            this.addHdfsServerButton.Click += new System.EventHandler(this.AddHdfsServerButtonClick);
+            // 
+            // editHdfsServerButton
+            // 
+            this.editHdfsServerButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.editHdfsServerButton.Image = ((System.Drawing.Image)(resources.GetObject("editHdfsServerButton.Image")));
+            this.editHdfsServerButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.editHdfsServerButton.Name = "editHdfsServerButton";
+            this.editHdfsServerButton.Size = new System.Drawing.Size(23, 22);
+            this.editHdfsServerButton.Text = "Edit HDFS Server";
+            this.editHdfsServerButton.Click += new System.EventHandler(this.EditHdfsServerButtonClick);
+            // 
+            // removeHdfsServerButton
+            // 
+            this.removeHdfsServerButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.removeHdfsServerButton.Image = ((System.Drawing.Image)(resources.GetObject("removeHdfsServerButton.Image")));
+            this.removeHdfsServerButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.removeHdfsServerButton.Name = "removeHdfsServerButton";
+            this.removeHdfsServerButton.Size = new System.Drawing.Size(23, 22);
+            this.removeHdfsServerButton.Text = "Remove HDFS Server";
+            this.removeHdfsServerButton.Click += new System.EventHandler(this.RemoveHdfsServerButtonClick);
+            // 
+            // mainStatusStrip
+            // 
+            this.mainStatusStrip.Location = new System.Drawing.Point(0, 540);
+            this.mainStatusStrip.Name = "mainStatusStrip";
+            this.mainStatusStrip.Size = new System.Drawing.Size(1008, 22);
+            this.mainStatusStrip.TabIndex = 3;
+            this.mainStatusStrip.Text = "statusStrip1";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1008, 562);
+            this.Controls.Add(this.mainStatusStrip);
+            this.Controls.Add(this.mainToolStrip);
             this.Controls.Add(this.mainSplitContainer);
             this.Name = "MainForm";
             this.Text = "HDFS Explorer";
@@ -338,7 +399,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.rightSplitContainer)).EndInit();
             this.rightSplitContainer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.rightFileGrid)).EndInit();
+            this.mainToolStrip.ResumeLayout(false);
+            this.mainToolStrip.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -365,6 +429,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn RightTypeColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn RightSizeTextColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn RightSizeColumn;
+        private System.Windows.Forms.ToolStrip mainToolStrip;
+        private System.Windows.Forms.ToolStripButton addHdfsServerButton;
+        private System.Windows.Forms.ToolStripButton removeHdfsServerButton;
+        private System.Windows.Forms.ToolStripButton editHdfsServerButton;
+        private System.Windows.Forms.StatusStrip mainStatusStrip;
     }
 }
 

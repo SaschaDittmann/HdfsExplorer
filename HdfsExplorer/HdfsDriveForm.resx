@@ -117,43 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ErrorCaption" xml:space="preserve">
-    <value>An error occured</value>
-  </data>
-  <data name="ErrorPrefix" xml:space="preserve">
-    <value>Error: </value>
-  </data>
-  <data name="LoadingText" xml:space="preserve">
-    <value>Loading...</value>
-  </data>
-  <data name="InitFileTransferStatusMessage" xml:space="preserve">
-    <value>Initialize File Transfer...</value>
-  </data>
-  <data name="DeleteDirectoryCaption" xml:space="preserve">
-    <value>Delete Folder</value>
-  </data>
-  <data name="DeleteDirectoryQuestion" xml:space="preserve">
-    <value>Do you really want to delete the folder '{0}' and all its files?</value>
-  </data>
-  <data name="DeleteFileCaption" xml:space="preserve">
-    <value>Delete File</value>
-  </data>
-  <data name="DeleteFileQuestion" xml:space="preserve">
-    <value>Do you really want to delete the file '{0}'?</value>
-  </data>
-  <data name="ConnectionTestSuccessMessage" xml:space="preserve">
-    <value>Connection established successfully.</value>
-  </data>
-  <data name="ConnectionTestCaption" xml:space="preserve">
-    <value>Test HDFS Connection</value>
-  </data>
-  <data name="DefaultHdfsDrivePort" xml:space="preserve">
-    <value>9000</value>
-  </data>
-  <data name="ConnectionTestFailedMessage" xml:space="preserve">
-    <value>Connection failed.</value>
-  </data>
-  <data name="HdfsDriveExistsMessage">
-    <value xml:space="preserve">HDFS Drive does already exist.</value>
-  </data>
+  <metadata name="errorProvider1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
 </root>

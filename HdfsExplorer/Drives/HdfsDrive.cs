@@ -39,7 +39,7 @@ namespace HdfsExplorer.Drives
         {
             get
             {
-                return String.Format("{0}:{1}", _host, _port);
+                return _name;
             }
         }
 
@@ -48,6 +48,30 @@ namespace HdfsExplorer.Drives
             get
             {
                 return String.Format("{0} [{1}:{2}]", _name, _host, _port);
+            }
+        }
+
+        public string Host
+        {
+            get
+            {
+                return _host;
+            }
+        }
+
+        public ushort Port
+        {
+            get
+            {
+                return _port;
+            }
+        }
+
+        public string User
+        {
+            get
+            {
+                return _user;
             }
         }
         

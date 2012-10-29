@@ -61,6 +61,42 @@ namespace HdfsExplorer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Test HDFS Connection.
+        /// </summary>
+        internal static string ConnectionTestCaption {
+            get {
+                return ResourceManager.GetString("ConnectionTestCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connection failed..
+        /// </summary>
+        internal static string ConnectionTestFailedMessage {
+            get {
+                return ResourceManager.GetString("ConnectionTestFailedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connection established successfully..
+        /// </summary>
+        internal static string ConnectionTestSuccessMessage {
+            get {
+                return ResourceManager.GetString("ConnectionTestSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 9000.
+        /// </summary>
+        internal static string DefaultHdfsDrivePort {
+            get {
+                return ResourceManager.GetString("DefaultHdfsDrivePort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete Folder.
         /// </summary>
         internal static string DeleteDirectoryCaption {
@@ -111,6 +147,15 @@ namespace HdfsExplorer.Properties {
         internal static string ErrorPrefix {
             get {
                 return ResourceManager.GetString("ErrorPrefix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HDFS Drive does already exist..
+        /// </summary>
+        internal static string HdfsDriveExistsMessage {
+            get {
+                return ResourceManager.GetString("HdfsDriveExistsMessage", resourceCulture);
             }
         }
         

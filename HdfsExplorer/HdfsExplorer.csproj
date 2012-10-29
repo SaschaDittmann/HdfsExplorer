@@ -53,6 +53,12 @@
     <Compile Include="Drives\HdfsDrive.cs" />
     <Compile Include="Drives\IDrive.cs" />
     <Compile Include="Drives\StandardDrive.cs" />
+    <Compile Include="HdfsDriveForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HdfsDriveForm.Designer.cs">
+      <DependentUpon>HdfsDriveForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -68,6 +74,9 @@
       <DependentUpon>FileTransferForm.cs</DependentUpon>
     </Compile>
     <Compile Include="FileTransferParameters.cs" />
+    <EmbeddedResource Include="HdfsDriveForm.resx">
+      <DependentUpon>HdfsDriveForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>

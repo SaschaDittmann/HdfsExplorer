@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
 using System.Linq;
+using System.Xml;
+using System.Xml.Linq;
 using HdfsExplorer.Drives;
 using HdfsExplorer.Properties;
 
@@ -12,6 +15,7 @@ namespace HdfsExplorer
 {
     public partial class MainForm : Form
     {
+        private const string HdfsServerFile = "HdfsServers.xml";
         private Dictionary<string, IDrive> _drives;
         private Dictionary<string, List<DriveEntry>> _driveEntryCache;
         private string _leftFileGridDirectoryKey;
@@ -59,19 +63,82 @@ namespace HdfsExplorer
 
         private void AddStandardDrives()
         {
-            foreach (var drive in DriveInfo.GetDrives().Select(drive => new StandardDrive(drive)))
+            try
             {
-                _drives.Add(drive.Key, drive);
+                foreach (var drive in DriveInfo.GetDrives().Select(drive => new StandardDrive(drive)))
+                {
+                    _drives.Add(drive.Key, drive);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, Resources.ErrorCaption,
+                                MessageBoxButtons.OK, MessageBoxIcon.Error,
+                                MessageBoxDefaultButton.Button1);
             }
         }
 
         private void AddHdfsDrives()
         {
-            // Dummy Drives
-            var hdfsDrive = new HdfsDrive("Local HDInsight Server", "localhost", 8020);
-            _drives.Add(hdfsDrive.Key, hdfsDrive);
-            hdfsDrive = new HdfsDrive("Dead Drive", "localhost", 9000);
-            _drives.Add(hdfsDrive.Key, hdfsDrive);
+            try
+            {
+                if (!File.Exists(HdfsServerFile)) return;
+                var servers = XDocument.Load(HdfsServerFile);
+                if (servers.Root == null) return;
+
+                foreach (var server in servers.Root.Elements("HdfsServer"))
+                {
+                    var nameAttribute = server.Attribute("name");
+                    var hostAttribute = server.Attribute("host");
+                    var portAttribute = server.Attribute("port");
+                    var userAttribute = server.Attribute("user");
+                    ushort port;
+
+                    if (nameAttribute == null || hostAttribute == null || portAttribute == null
+                        || !ushort.TryParse(portAttribute.Value, out port))
+                        continue;
+
+                    var drive = userAttribute == null
+                                    ? new HdfsDrive(nameAttribute.Value, hostAttribute.Value, port)
+                                    : new HdfsDrive(nameAttribute.Value, hostAttribute.Value, port, userAttribute.Value);
+                    _drives.Add(drive.Key, drive);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, Resources.ErrorCaption,
+                                MessageBoxButtons.OK, MessageBoxIcon.Error,
+                                MessageBoxDefaultButton.Button1);
+            }
+        }
+
+        private void StoreHdfsDrives()
+        {
+            using (var fileStream = File.Create(HdfsServerFile))
+            {
+                using (var writer = XmlWriter.Create(fileStream))
+                {
+                    writer.WriteStartDocument();
+                    writer.WriteStartElement("HdfsServers");
+
+                    foreach (var drive in _drives
+                        .Select(drive => drive.Value)
+                        .OfType<HdfsDrive>())
+                    {
+                        writer.WriteStartElement("HdfsServer");
+                        writer.WriteAttributeString("name", drive.Name);
+                        writer.WriteAttributeString("host", drive.Host);
+                        writer.WriteAttributeString("port", drive.Port.ToString(CultureInfo.InvariantCulture));
+                        if (!String.IsNullOrEmpty(drive.User))
+                            writer.WriteAttributeString("user", drive.User);
+                        writer.WriteEndElement();
+                    }
+                    writer.WriteEndElement();
+                    writer.WriteEndDocument();
+                    writer.Close();
+                }
+                fileStream.Close();
+            }
         }
 
         private void DirectoryTreeBeforeExpand(object sender, TreeViewCancelEventArgs e)
@@ -495,6 +562,66 @@ namespace HdfsExplorer
                 }
             }
             RefreshDriveEntries(driveKey, directoryKey);
+        }
+
+        private void AddHdfsServerButtonClick(object sender, EventArgs e)
+        {
+            try
+            {
+                var form = new HdfsDriveForm();
+                if (form.ShowDialog() != DialogResult.OK) return;
+
+                var drive = form.Drive;
+                if (!_drives.ContainsKey(drive.Key))
+                {
+                    _drives.Add(drive.Key, drive);
+                    StoreHdfsDrives();
+                    var node = leftDirectoryTree.Nodes.Add(drive.Key, drive.Label);
+                    node.Nodes.Add(Resources.LoadingText);
+                    node = rightDirectoryTree.Nodes.Add(drive.Key, drive.Label);
+                    node.Nodes.Add(Resources.LoadingText);
+                }
+                else
+                {
+                    MessageBox.Show(Resources.HdfsDriveExistsMessage, Resources.ErrorCaption,
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error,
+                                    MessageBoxDefaultButton.Button1);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, Resources.ErrorCaption,
+                                MessageBoxButtons.OK, MessageBoxIcon.Error,
+                                MessageBoxDefaultButton.Button1);
+            }
+        }
+
+        private void EditHdfsServerButtonClick(object sender, EventArgs e)
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, Resources.ErrorCaption,
+                                MessageBoxButtons.OK, MessageBoxIcon.Error,
+                                MessageBoxDefaultButton.Button1);
+            }
+        }
+
+        private void RemoveHdfsServerButtonClick(object sender, EventArgs e)
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, Resources.ErrorCaption,
+                                MessageBoxButtons.OK, MessageBoxIcon.Error,
+                                MessageBoxDefaultButton.Button1);
+            }
         }
     }
 }
