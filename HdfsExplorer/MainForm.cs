@@ -262,6 +262,11 @@ namespace HdfsExplorer
             if (!_driveEntryCache.ContainsKey(driveEntryKey) || forceRefresh)
             {
                 var driveEntries = drive.GetDriveEntries(driveEntryKey);
+                if (driveEntries == null)
+                {
+                    grid.DataSource = null;
+                    return;
+                }
                 _driveEntryCache.Add(driveEntryKey, driveEntries);
             }
             grid.DataSource = _driveEntryCache[driveEntryKey].ToList();    

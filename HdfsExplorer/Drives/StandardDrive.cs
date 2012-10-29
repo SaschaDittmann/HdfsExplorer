@@ -90,6 +90,7 @@ namespace HdfsExplorer.Drives
 
         public List<DriveEntry> GetDriveEntries(string path)
         {
+            if (!_driveInfo.IsReady) return null;
             var driveEntries = new List<DriveEntry>(GetDirectories(path));
             driveEntries.AddRange(GetFiles(path, false));
             return driveEntries;
