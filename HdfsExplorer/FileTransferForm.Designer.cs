@@ -1,6 +1,6 @@
 ﻿namespace HdfsExplorer
 {
-    partial class TransferFileForm
+    partial class FileTransferForm
     {
         /// <summary>
         /// Required designer variable.
@@ -34,6 +34,10 @@
             this.CancelButton = new System.Windows.Forms.Button();
             this.SourceFilePath = new System.Windows.Forms.Label();
             this.TargetFilePath = new System.Windows.Forms.Label();
+            this.FileTransferBackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.InitFileTransferBackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.TotalTransferProgressBar = new System.Windows.Forms.ProgressBar();
             this.SuspendLayout();
             // 
             // FileTransferProgressBar
@@ -63,7 +67,7 @@
             // 
             // CancelButton
             // 
-            this.CancelButton.Location = new System.Drawing.Point(327, 86);
+            this.CancelButton.Location = new System.Drawing.Point(327, 115);
             this.CancelButton.Name = "CancelButton";
             this.CancelButton.Size = new System.Drawing.Size(75, 23);
             this.CancelButton.TabIndex = 3;
@@ -89,11 +93,41 @@
             this.TargetFilePath.TabIndex = 5;
             this.TargetFilePath.Text = "Destination";
             // 
-            // TransferFileForm
+            // FileTransferBackgroundWorker
+            // 
+            this.FileTransferBackgroundWorker.WorkerReportsProgress = true;
+            this.FileTransferBackgroundWorker.WorkerSupportsCancellation = true;
+            this.FileTransferBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.FileTransferBackgroundWorkerDoWork);
+            this.FileTransferBackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.FileTransferBackgroundWorkerProgressChanged);
+            this.FileTransferBackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.FileTransferBackgroundWorkerRunWorkerCompleted);
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Location = new System.Drawing.Point(0, 144);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(414, 22);
+            this.statusStrip1.TabIndex = 6;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // InitFileTransferBackgroundWorker
+            // 
+            this.InitFileTransferBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.InitFileTransferBackgroundWorkerDoWork);
+            this.InitFileTransferBackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.InitFileTransferBackgroundWorkerRunWorkerCompleted);
+            // 
+            // TotalTransferProgressBar
+            // 
+            this.TotalTransferProgressBar.Location = new System.Drawing.Point(12, 86);
+            this.TotalTransferProgressBar.Name = "TotalTransferProgressBar";
+            this.TotalTransferProgressBar.Size = new System.Drawing.Size(390, 23);
+            this.TotalTransferProgressBar.TabIndex = 7;
+            // 
+            // FileTransferForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(414, 123);
+            this.ClientSize = new System.Drawing.Size(414, 166);
+            this.Controls.Add(this.TotalTransferProgressBar);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.TargetFilePath);
             this.Controls.Add(this.SourceFilePath);
             this.Controls.Add(this.CancelButton);
@@ -101,7 +135,7 @@
             this.Controls.Add(this.SourceLabel);
             this.Controls.Add(this.FileTransferProgressBar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Name = "TransferFileForm";
+            this.Name = "FileTransferForm";
             this.ShowIcon = false;
             this.Text = "Transfer File(s)";
             this.Load += new System.EventHandler(this.TransferFileFormLoad);
@@ -118,5 +152,9 @@
         private System.Windows.Forms.Button CancelButton;
         private System.Windows.Forms.Label SourceFilePath;
         private System.Windows.Forms.Label TargetFilePath;
+        private System.ComponentModel.BackgroundWorker FileTransferBackgroundWorker;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.ComponentModel.BackgroundWorker InitFileTransferBackgroundWorker;
+        private System.Windows.Forms.ProgressBar TotalTransferProgressBar;
     }
 }

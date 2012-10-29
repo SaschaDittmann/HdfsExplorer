@@ -79,6 +79,15 @@ namespace HdfsExplorer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Initialize File Transfer....
+        /// </summary>
+        internal static string InitFileTransferStatusMessage {
+            get {
+                return ResourceManager.GetString("InitFileTransferStatusMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Loading....
         /// </summary>
         internal static string LoadingText {

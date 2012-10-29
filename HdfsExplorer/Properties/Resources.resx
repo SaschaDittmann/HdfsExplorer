@@ -126,4 +126,7 @@
   <data name="LoadingText" xml:space="preserve">
     <value>Loading...</value>
   </data>
+  <data name="InitFileTransferStatusMessage">
+    <value xml:space="preserve">Initialize File Transfer...</value>
+  </data>
 </root>

@@ -305,6 +305,7 @@
             this.Name = "MainForm";
             this.Text = "HDFS Explorer";
             this.Load += new System.EventHandler(this.MainFormLoad);
+            this.Leave += new System.EventHandler(this.MainFormLeave);
             ((System.ComponentModel.ISupportInitialize)(this.leftFileGrid)).EndInit();
             this.mainSplitContainer.Panel1.ResumeLayout(false);
             this.mainSplitContainer.Panel2.ResumeLayout(false);

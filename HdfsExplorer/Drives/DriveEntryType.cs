@@ -7,6 +7,7 @@ namespace HdfsExplorer.Drives
 {
     public enum DriveEntryType
     {
+        Unknown,
         File,
         Directory
     }

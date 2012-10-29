@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Text;
 using Microsoft.Hdfs;
 
 namespace HdfsExplorer.Drives
@@ -73,24 +73,40 @@ namespace HdfsExplorer.Drives
             }
         }
 
-        public List<DriveEntry> GetFiles(string path)
+        public List<DriveEntry> GetFiles(string path, bool includeSubdirectories)
         {
             using (var fileSystem = GetHdfsFileSystemConnection())
             {
                 if (!fileSystem.IsValid())
                     return null;
 
-                var files = new List<DriveEntry>();
-                using(var entries = fileSystem.ListDirectory(path))
-                {
-                    if (entries.Entries != null)
-                        files.AddRange(
-                            entries.Entries
-                                .Where(e => e.Kind == HdfsFileInfoEntryKind.File)
-                                .Select(GetDriveEntryFromHdfsFileInfoEntry));
-                }
-                return files;
+                return GetFiles(fileSystem, path, includeSubdirectories);
             }
+        }
+
+        private List<DriveEntry> GetFiles(HdfsFileSystem fileSystem, string path, bool includeSubdirectories)
+        {
+            var files = new List<DriveEntry>();
+            using (var entries = fileSystem.ListDirectory(path))
+            {
+                if (entries.Entries != null)
+                {
+                    files.AddRange(
+                        entries.Entries
+                            .Where(e => e.Kind == HdfsFileInfoEntryKind.File)
+                            .Select(GetDriveEntryFromHdfsFileInfoEntry));
+
+                    if (includeSubdirectories)
+                    {
+                        foreach (var directory in entries.Entries
+                            .Where(e => e.Kind == HdfsFileInfoEntryKind.Directory))
+                        {
+                            files.AddRange(GetFiles(fileSystem, directory.Name, true));
+                        }
+                    }
+                }
+            }
+            return files;
         }
 
         public List<DriveEntry> GetDirectories(string path)
@@ -132,12 +148,39 @@ namespace HdfsExplorer.Drives
             }
         }
 
-        public Stream GetFileStream(string file)
+        public char PathDelimiter { get { return '/'; } }
+
+        public string GetFileName(string filePath)
+        {
+            return filePath.Substring(filePath.LastIndexOf(PathDelimiter) + 1);
+        }
+
+        public string CombinePath(params string[] paths)
+        {
+            if (paths.Length == 0) return null;
+
+            var sb = new StringBuilder();
+            foreach (var path in paths)
+            {
+                if (sb.Length > 0)
+                    sb.Append("/");
+                sb.Append(path.Trim(PathDelimiter));
+            }
+
+            return sb.ToString();
+        }
+
+        public DriveEntryType GetDriveEntryType(string path)
         {
             using (var fileSystem = GetHdfsFileSystemConnection())
             {
-                if (!fileSystem.IsValid() || !fileSystem.FileExists(file)) return null;
-                return fileSystem.OpenFileStream(file, HdfsFileAccess.Read);
+                if (!fileSystem.IsValid()) return DriveEntryType.Unknown;
+                using (var info = fileSystem.GetPathInfo(path))
+                {
+                    return info.Kind == HdfsFileInfoEntryKind.File
+                               ? DriveEntryType.File
+                               : DriveEntryType.Directory;
+                }
             }
         }
 
@@ -150,12 +193,12 @@ namespace HdfsExplorer.Drives
             }
         }
 
-        private static DriveEntry GetDriveEntryFromHdfsFileInfoEntry(HdfsFileInfoEntry entry)
+        private DriveEntry GetDriveEntryFromHdfsFileInfoEntry(HdfsFileInfoEntry entry)
         {
             return new DriveEntry
                 {
                     Key = entry.Name,
-                    Name = entry.Name.Substring(entry.Name.LastIndexOf('/') + 1),
+                    Name = entry.Name.Substring(entry.Name.LastIndexOf(PathDelimiter) + 1),
                     Type = entry.Kind == HdfsFileInfoEntryKind.File
                                ? DriveEntryType.File
                                : DriveEntryType.Directory,
@@ -165,64 +208,59 @@ namespace HdfsExplorer.Drives
                 };
         }
 
-        public BackgroundWorker GetFileTransferBackgroundWorker(string sourceFilePath, string targetPath)
+        private HdfsFileSystem _fileSystem;
+        private HdfsFileStream _fileStream;
+
+        public Stream OpenFileStreamForRead(string file)
         {
-            if (!sourceFilePath.StartsWith("hdfs://")) return null;
-            var backgroundWorker = new BackgroundWorker();
-            backgroundWorker.WorkerReportsProgress = true;
-            backgroundWorker.WorkerSupportsCancellation = true;
+            _fileSystem = GetHdfsFileSystemConnection();
+            if (!_fileSystem.IsValid()) return null;
 
-            if (!targetPath.StartsWith("hdfs://"))
+            _fileStream = _fileSystem.OpenFileStream(file, HdfsFileAccess.Read);
+            return _fileStream.IsValid() ? _fileStream : null;
+        }
+
+        public Stream OpenFileStreamForWrite(string file)
+        {
+            _fileSystem = GetHdfsFileSystemConnection();
+            if (!_fileSystem.IsValid()) return null;
+
+            _fileStream = _fileSystem.OpenFileStream(file, HdfsFileAccess.Write);
+            return _fileStream.IsValid() ? _fileStream : null;
+        }
+
+        public Stream OpenFileStreamForAppend(string file)
+        {
+            _fileSystem = GetHdfsFileSystemConnection();
+            if (!_fileSystem.IsValid()) return null;
+
+            _fileStream = _fileSystem.OpenFileStream(file, HdfsFileAccess.Append);
+            return _fileStream.IsValid() ? _fileStream : null;
+        }
+
+        public void CloseFileStream()
+        {
+            if (_fileStream != null)
             {
-                var targetFilePath = Path.Combine(targetPath,
-                                                  sourceFilePath.Substring(sourceFilePath.LastIndexOf('/') + 1));
-                
-                backgroundWorker.DoWork += (sender, args) =>
-                    {
-                        using (var fileSystem = GetHdfsFileSystemConnection())
-                        {
-                            if (!fileSystem.IsValid() || !fileSystem.FileExists(sourceFilePath)) return;
-
-                            using (var sourceFileHandle = fileSystem.OpenFileForRead(sourceFilePath))
-                            {
-                                var maxBytes = Convert.ToDouble(sourceFileHandle.Available());
-                                using(var targetFileHandle = File.Create(targetFilePath))
-                                {
-                                    while (sourceFileHandle.Available() > 0)
-                                    {
-                                        var bufferSize =
-                                            8192 < maxBytes - sourceFileHandle.Tell()
-                                                ? 8192
-                                                : Convert.ToInt32(maxBytes - sourceFileHandle.Tell());
-                                        var buffer = new byte[bufferSize];
-                                        
-                                        sourceFileHandle.ReadBytes(buffer, 0, bufferSize);
-                                        if (backgroundWorker.CancellationPending)
-                                        {
-                                            sourceFileHandle.Close();
-                                            targetFileHandle.Close();
-                                            File.Delete(targetFilePath);
-                                            return;
-                                        }
-
-                                        targetFileHandle.Write(buffer, 0, buffer.Length);
-                                        if (backgroundWorker.CancellationPending)
-                                        {
-                                            sourceFileHandle.Close();
-                                            targetFileHandle.Close();
-                                            File.Delete(targetFilePath);
-                                            return;
-                                        }
-
-                                        var progress = Convert.ToDouble(sourceFileHandle.Tell()) / maxBytes * 100.0;
-                                        backgroundWorker.ReportProgress(Convert.ToInt32(progress));
-                                    }
-                                }
-                            }
-                        }
-                    };
+                if (_fileStream.CanWrite)
+                    _fileStream.Flush();
+                _fileStream.Close();
             }
-            return backgroundWorker;
+        }
+
+        public void DisposeFileStream()
+        {
+            //if (_fileStream != null)
+            //{
+            //    _fileStream.Dispose();
+            //    _fileStream = null;
+            //}
+
+            if (_fileSystem != null)
+            {
+                _fileSystem.Dispose();
+                _fileSystem = null;
+            }
         }
 
         private HdfsFileSystem GetHdfsFileSystemConnection()
@@ -230,6 +268,33 @@ namespace HdfsExplorer.Drives
             return String.IsNullOrEmpty(_user)
                        ? HdfsFileSystem.Connect(_host, _port)
                        : HdfsFileSystem.Connect(_host, _port, _user);
+        }
+
+        private bool _disposed;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    DisposeFileStream();
+                }
+            }
+
+            _disposed = true;
+        }
+
+        public void Dispose()
+        {
+            // Do not change this code.  Put cleanup code in Dispose(disposing As Boolean) above.
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        ~HdfsDrive()
+        {
+            Dispose(false);
         }
     }
 }

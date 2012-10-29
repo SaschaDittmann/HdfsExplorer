@@ -61,12 +61,13 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TransferFileForm.cs">
+    <Compile Include="FileTransferForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TransferFileForm.Designer.cs">
-      <DependentUpon>TransferFileForm.cs</DependentUpon>
+    <Compile Include="FileTransferForm.Designer.cs">
+      <DependentUpon>FileTransferForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="FileTransferParameters.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -80,8 +81,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="TransferFileForm.resx">
-      <DependentUpon>TransferFileForm.cs</DependentUpon>
+    <EmbeddedResource Include="FileTransferForm.resx">
+      <DependentUpon>FileTransferForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

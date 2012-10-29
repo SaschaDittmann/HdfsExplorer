@@ -38,6 +38,12 @@ namespace HdfsExplorer
                 rightDirectoryTree.SelectedNode = rightDirectoryTree.Nodes[0];
         }
 
+        private void MainFormLeave(object sender, EventArgs e)
+        {
+            foreach (var drive in _drives)
+                drive.Value.Dispose();
+        }
+
         private void RefreshDirectoryTrees()
         {
             leftDirectoryTree.Nodes.Clear();
@@ -53,10 +59,9 @@ namespace HdfsExplorer
 
         private void AddStandardDrives()
         {
-            foreach(var drive in DriveInfo.GetDrives())
+            foreach (var drive in DriveInfo.GetDrives().Select(drive => new StandardDrive(drive)))
             {
-                var standardDrive = new StandardDrive(drive);
-                _drives.Add(standardDrive.Key, standardDrive);
+                _drives.Add(drive.Key, drive);
             }
         }
 
@@ -232,19 +237,29 @@ namespace HdfsExplorer
 
         private void StartFileTransfer(string targetDriveKey, string targetDirectoryKey)
         {
+            string driveKey;
+            StringCollection fileDropList;
+
             if (Clipboard.ContainsFileDropList())
-                new TransferFileForm(null, Clipboard.GetFileDropList(), _drives[targetDriveKey], targetDirectoryKey).Show();
+            {
+                fileDropList = Clipboard.GetFileDropList();
+                if (fileDropList.Count==0) return;
+                driveKey = Path.GetPathRoot(fileDropList[0]);
+                if (String.IsNullOrEmpty(driveKey)) return;
+            }
             else if (Clipboard.ContainsData("HdfsFileTransfer"))
             {
                 var hdfsFileTransfer = Clipboard.GetData("HdfsFileTransfer") as StringCollection;
-                if (hdfsFileTransfer == null || hdfsFileTransfer.Count<2)
-                    return;
-                var driveKey = hdfsFileTransfer[0];
+                if (hdfsFileTransfer == null || hdfsFileTransfer.Count<2) return;
+                driveKey = hdfsFileTransfer[0];
                 hdfsFileTransfer.RemoveAt(0);
-                var fileDropList = hdfsFileTransfer;
-
-                new TransferFileForm(_drives[driveKey], fileDropList, _drives[targetDriveKey], targetDirectoryKey).Show();
+                fileDropList = hdfsFileTransfer;
             }
+            else 
+                return;
+
+            new FileTransferForm(_drives[driveKey], fileDropList, 
+                _drives[targetDriveKey], targetDirectoryKey).Show();
         }
     }
 }
