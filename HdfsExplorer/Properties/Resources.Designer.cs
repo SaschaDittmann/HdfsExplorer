@@ -61,6 +61,24 @@ namespace HdfsExplorer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete Folder.
+        /// </summary>
+        internal static string DeleteDirectoryCaption {
+            get {
+                return ResourceManager.GetString("DeleteDirectoryCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you really want to delete the folder &apos;{0}&apos; and all its files?.
+        /// </summary>
+        internal static string DeleteDirectoryQuestion {
+            get {
+                return ResourceManager.GetString("DeleteDirectoryQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occured.
         /// </summary>
         internal static string ErrorCaption {

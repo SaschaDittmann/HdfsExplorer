@@ -172,6 +172,26 @@ namespace HdfsExplorer.Drives
             File.Delete(file);
         }
 
+        public void DeleteDirectory(string path)
+        {
+            if (!Directory.Exists(path)) return;
+
+            foreach (var entry in Directory.GetFileSystemEntries(path))
+            {
+                switch (GetDriveEntryType(entry))
+                {
+                    case DriveEntryType.Directory:
+                        DeleteDirectory(entry);
+                        break;
+                    case DriveEntryType.File:
+                        DeleteFile(entry);
+                        break;
+                }
+            }
+
+            Directory.Delete(path);
+        }
+
         private bool _disposed;
 
         protected virtual void Dispose(bool disposing)

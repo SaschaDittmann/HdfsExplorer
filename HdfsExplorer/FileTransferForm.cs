@@ -157,9 +157,7 @@ namespace HdfsExplorer
                             var progress = Convert.ToDouble(source.Position)/Convert.ToDouble(sourceLength)*100.0;
                             FileTransferBackgroundWorker.ReportProgress(Convert.ToInt32(progress));
                         }
-                        _targetDrive.CloseFileStream();
                     }
-                    //_sourceDrive.CloseFileStream();
                 }
             }
             finally

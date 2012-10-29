@@ -193,6 +193,15 @@ namespace HdfsExplorer.Drives
             }
         }
 
+        public void DeleteDirectory(string path)
+        {
+            using (var fileSystem = GetHdfsFileSystemConnection())
+            {
+                if (!fileSystem.IsValid()) return;
+                fileSystem.DeleteFile(path);
+            }
+        }
+
         private DriveEntry GetDriveEntryFromHdfsFileInfoEntry(HdfsFileInfoEntry entry)
         {
             return new DriveEntry

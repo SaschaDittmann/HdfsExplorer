@@ -126,7 +126,13 @@
   <data name="LoadingText" xml:space="preserve">
     <value>Loading...</value>
   </data>
-  <data name="InitFileTransferStatusMessage">
-    <value xml:space="preserve">Initialize File Transfer...</value>
+  <data name="InitFileTransferStatusMessage" xml:space="preserve">
+    <value>Initialize File Transfer...</value>
+  </data>
+  <data name="DeleteDirectoryCaption" xml:space="preserve">
+    <value>Delete Folder</value>
+  </data>
+  <data name="DeleteDirectoryQuestion" xml:space="preserve">
+    <value>Do you really want to delete the folder '{0}' and all its files?</value>
   </data>
 </root>

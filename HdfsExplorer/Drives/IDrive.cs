@@ -29,5 +29,6 @@ namespace HdfsExplorer.Drives
         void DisposeFileStream();
 
         void DeleteFile(string file);
+        void DeleteDirectory(string path);
     }
 }
