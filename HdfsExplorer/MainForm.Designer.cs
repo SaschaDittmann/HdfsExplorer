@@ -154,6 +154,7 @@
             this.leftDirectoryTree.TabIndex = 0;
             this.leftDirectoryTree.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.DirectoryTreeBeforeExpand);
             this.leftDirectoryTree.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.LeftDirectoryTreeBeforeSelect);
+            this.leftDirectoryTree.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.DirectoryTreeKeyPress);
             // 
             // mainSplitContainer
             // 
@@ -216,6 +217,7 @@
             this.rightDirectoryTree.TabIndex = 0;
             this.rightDirectoryTree.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.DirectoryTreeBeforeExpand);
             this.rightDirectoryTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.RightDirectoryTreeAfterSelect);
+            this.rightDirectoryTree.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.DirectoryTreeKeyPress);
             // 
             // rightFileGrid
             // 

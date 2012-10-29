@@ -172,6 +172,32 @@ namespace HdfsExplorer
             }
         }
 
+        private void DirectoryTreeKeyPress(object sender, KeyPressEventArgs e)
+        {
+            var treeView = sender as TreeView;
+            if (treeView == null || treeView.SelectedNode == null) return;
+
+            var drive = GetDriveFromTreeNode(treeView.SelectedNode);
+            if (drive == null) return;
+
+            switch (Convert.ToByte(e.KeyChar))
+            {
+                case 3:
+                    // Copy
+                    _moveDriveEntriesInClipboard = false;
+                    AddDirectoryToClipboard(drive.Key, treeView);
+                    break;
+                case 24:
+                    _moveDriveEntriesInClipboard = true;
+                    AddDirectoryToClipboard(drive.Key, treeView);
+                    break;
+                case 22:
+                    StartFileTransfer(drive.Key, treeView.SelectedNode.Name);
+                    break;
+            }
+            
+        }
+
         private IDrive GetDriveFromTreeNode(TreeNode node)
         {
             var driveNode = node;
@@ -226,6 +252,20 @@ namespace HdfsExplorer
             var fileDropList = new StringCollection();
             fileDropList.AddRange((from DataGridViewRow row in grid.SelectedRows
                                    select row.Cells[0].Value.ToString()).ToArray());
+            AddFileDropListToClipboard(driveKey, fileDropList);
+        }
+
+        private static void AddDirectoryToClipboard(string driveKey, TreeView treeView)
+        {
+            if (treeView.SelectedNode == null) return;
+
+            AddFileDropListToClipboard(
+                driveKey,
+                new StringCollection {treeView.SelectedNode.Name.Split('|')[0]});
+        }
+
+        private static void AddFileDropListToClipboard(string driveKey, StringCollection fileDropList)
+        {
             if (fileDropList[0].StartsWith("hdfs://"))
             {
                 fileDropList.Insert(0, driveKey);
