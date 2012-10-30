@@ -35,10 +35,12 @@
             this.SourceFilePath = new System.Windows.Forms.Label();
             this.TargetFilePath = new System.Windows.Forms.Label();
             this.fileTransferBackgroundWorker = new System.ComponentModel.BackgroundWorker();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.fileTransferStatusStrip = new System.Windows.Forms.StatusStrip();
             this.InitFileTransferBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.TotalTransferProgressBar = new System.Windows.Forms.ProgressBar();
             this.cleanupBackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.fileTransferStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.fileTransferStatusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // FileTransferProgressBar
@@ -102,13 +104,15 @@
             this.fileTransferBackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.FileTransferBackgroundWorkerProgressChanged);
             this.fileTransferBackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.FileTransferBackgroundWorkerRunWorkerCompleted);
             // 
-            // statusStrip1
+            // fileTransferStatusStrip
             // 
-            this.statusStrip1.Location = new System.Drawing.Point(0, 144);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(414, 22);
-            this.statusStrip1.TabIndex = 6;
-            this.statusStrip1.Text = "statusStrip1";
+            this.fileTransferStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileTransferStatus});
+            this.fileTransferStatusStrip.Location = new System.Drawing.Point(0, 144);
+            this.fileTransferStatusStrip.Name = "fileTransferStatusStrip";
+            this.fileTransferStatusStrip.Size = new System.Drawing.Size(414, 22);
+            this.fileTransferStatusStrip.TabIndex = 6;
+            this.fileTransferStatusStrip.Text = "statusStrip1";
             // 
             // InitFileTransferBackgroundWorker
             // 
@@ -127,13 +131,18 @@
             this.cleanupBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.CleanupBackgroundWorkerDoWork);
             this.cleanupBackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.CleanupBackgroundWorkerRunWorkerCompleted);
             // 
+            // fileTransferStatus
+            // 
+            this.fileTransferStatus.Name = "fileTransferStatus";
+            this.fileTransferStatus.Size = new System.Drawing.Size(0, 17);
+            // 
             // FileTransferForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(414, 166);
             this.Controls.Add(this.TotalTransferProgressBar);
-            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.fileTransferStatusStrip);
             this.Controls.Add(this.TargetFilePath);
             this.Controls.Add(this.SourceFilePath);
             this.Controls.Add(this.CancelButton);
@@ -146,6 +155,8 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Transfer File(s)";
             this.Load += new System.EventHandler(this.TransferFileFormLoad);
+            this.fileTransferStatusStrip.ResumeLayout(false);
+            this.fileTransferStatusStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -160,9 +171,10 @@
         private System.Windows.Forms.Label SourceFilePath;
         private System.Windows.Forms.Label TargetFilePath;
         private System.ComponentModel.BackgroundWorker fileTransferBackgroundWorker;
-        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.StatusStrip fileTransferStatusStrip;
         private System.ComponentModel.BackgroundWorker InitFileTransferBackgroundWorker;
         private System.Windows.Forms.ProgressBar TotalTransferProgressBar;
         private System.ComponentModel.BackgroundWorker cleanupBackgroundWorker;
+        private System.Windows.Forms.ToolStripStatusLabel fileTransferStatus;
     }
 }

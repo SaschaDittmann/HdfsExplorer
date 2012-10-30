@@ -844,6 +844,7 @@ namespace HdfsExplorer
         {
             string driveKey;
             StringCollection fileDropList;
+            var moveMode = false;
 
             if (Clipboard.ContainsFileDropList())
             {
@@ -855,17 +856,32 @@ namespace HdfsExplorer
             else if (Clipboard.ContainsData(ClipboardDataType))
             {
                 var hdfsFileTransfer = Clipboard.GetData(ClipboardDataType) as StringCollection;
-                if (hdfsFileTransfer == null || hdfsFileTransfer.Count<2) return;
+                if (hdfsFileTransfer == null || hdfsFileTransfer.Count < 2) return;
                 driveKey = hdfsFileTransfer[0];
                 hdfsFileTransfer.RemoveAt(0);
+                if (hdfsFileTransfer[0] == MoveModeToken)
+                {
+                    moveMode = true;
+                    hdfsFileTransfer.RemoveAt(0);
+                }
                 fileDropList = hdfsFileTransfer;
             }
             else 
                 return;
 
-            var form = new FileTransferForm(_drives[driveKey], fileDropList, 
-                _drives[targetDriveKey], targetDirectoryKey);
-            form.Closed += (s, e) => RefreshDriveEntries(targetDriveKey, targetDirectoryKey);
+            var sourceDrive = _drives[driveKey];
+            var form = new FileTransferForm(sourceDrive, fileDropList,
+                _drives[targetDriveKey], targetDirectoryKey, moveMode);
+            form.Closed += (s, e) =>
+                {
+                    if (moveMode && fileDropList.Count>0)
+                    {
+                        var sourceDirectoryKey = fileDropList[0]
+                            .Substring(0, fileDropList[0].LastIndexOf(sourceDrive.PathDelimiter));
+                        RefreshDriveEntries(driveKey, sourceDirectoryKey);
+                    }
+                    RefreshDriveEntries(targetDriveKey, targetDirectoryKey);
+                };
             form.Show();
         }
 

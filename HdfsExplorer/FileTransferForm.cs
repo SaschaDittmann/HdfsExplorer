@@ -11,17 +11,16 @@ namespace HdfsExplorer
 {
     public partial class FileTransferForm : Form
     {
-        private const string MoveModeToken = "*MOVE_MODE*";
         private readonly IDrive _sourceDrive;
         private readonly StringCollection _sourcePaths;
         private readonly Queue<FileTransferParameters> _fileTransferQueue;
         private readonly Queue<string> _sourcePathsToDelete;
         private readonly IDrive _targetDrive;
         private readonly string _targetPath;
-        private bool _moveMode;
+        private readonly bool _moveMode;
         private int _totalFileCount;
 
-        public FileTransferForm(IDrive sourceDrive, StringCollection sourcePaths, IDrive targetDrive, string targetPath)
+        public FileTransferForm(IDrive sourceDrive, StringCollection sourcePaths, IDrive targetDrive, string targetPath, bool moveMode)
         {
             InitializeComponent();
 
@@ -29,7 +28,7 @@ namespace HdfsExplorer
             _sourcePaths = sourcePaths;
             _targetDrive = targetDrive;
             _targetPath = targetPath;
-            _moveMode = false;
+            _moveMode = moveMode;
 
             _fileTransferQueue = new Queue<FileTransferParameters>();
             _sourcePathsToDelete = new Queue<string>();
@@ -39,7 +38,7 @@ namespace HdfsExplorer
         {
             try
             {
-                statusStrip1.Text = Resources.FileTransferInitStatusMessage;
+                fileTransferStatus.Text = Resources.FileTransferInitStatusMessage;
                 InitFileTransferBackgroundWorker.RunWorkerAsync();
             }
             catch (Exception ex)
@@ -60,12 +59,6 @@ namespace HdfsExplorer
         {
             foreach (var path in _sourcePaths)
             {
-                if (path == MoveModeToken)
-                {
-                    _moveMode = true;
-                    continue;
-                }
-
                 switch (_sourceDrive.GetDriveEntryType(path))
                 {
                     case DriveEntryType.File:
@@ -112,7 +105,7 @@ namespace HdfsExplorer
 
                 _totalFileCount = _fileTransferQueue.Count;
 
-                statusStrip1.Text =
+                fileTransferStatus.Text =
                     _moveMode
                         ? Resources.FileTransferMoveStatusMessage
                         : Resources.FileTransferCopyStatusMessage;
@@ -219,7 +212,7 @@ namespace HdfsExplorer
                 {
                     if (_moveMode)
                     {
-                        statusStrip1.Text = Resources.FileTransferCleanupStatusMessage;
+                        fileTransferStatus.Text = Resources.FileTransferCleanupStatusMessage;
                         cleanupBackgroundWorker.RunWorkerAsync();
                     }
                     else
