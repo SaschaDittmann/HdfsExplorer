@@ -148,7 +148,7 @@
     <value>Test HDFS Connection</value>
   </data>
   <data name="DefaultHdfsDrivePort" xml:space="preserve">
-    <value>9000</value>
+    <value>8020</value>
   </data>
   <data name="ConnectionTestFailedMessage" xml:space="preserve">
     <value>Connection failed.</value>

@@ -509,7 +509,9 @@ namespace HdfsExplorer
                 if (form.ShowDialog() != DialogResult.OK) return;
 
                 var drive = GetDriveFromTreeNode(treeView.SelectedNode);
-                var newFolder = drive.CombinePath(treeView.SelectedNode.Name, form.DriveEntryName);
+                var newFolder = drive.CombinePath(
+                    treeView.SelectedNode.Name.Split('|')[0], 
+                    form.DriveEntryName);
                 drive.CreateDirectory(newFolder);
                 RefreshDriveEntries(drive.Key, treeView.SelectedNode.Name);
             }
