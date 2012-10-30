@@ -34,10 +34,11 @@
             this.CancelButton = new System.Windows.Forms.Button();
             this.SourceFilePath = new System.Windows.Forms.Label();
             this.TargetFilePath = new System.Windows.Forms.Label();
-            this.FileTransferBackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.fileTransferBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.InitFileTransferBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.TotalTransferProgressBar = new System.Windows.Forms.ProgressBar();
+            this.cleanupBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
             // FileTransferProgressBar
@@ -93,13 +94,13 @@
             this.TargetFilePath.TabIndex = 5;
             this.TargetFilePath.Text = "Destination";
             // 
-            // FileTransferBackgroundWorker
+            // fileTransferBackgroundWorker
             // 
-            this.FileTransferBackgroundWorker.WorkerReportsProgress = true;
-            this.FileTransferBackgroundWorker.WorkerSupportsCancellation = true;
-            this.FileTransferBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.FileTransferBackgroundWorkerDoWork);
-            this.FileTransferBackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.FileTransferBackgroundWorkerProgressChanged);
-            this.FileTransferBackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.FileTransferBackgroundWorkerRunWorkerCompleted);
+            this.fileTransferBackgroundWorker.WorkerReportsProgress = true;
+            this.fileTransferBackgroundWorker.WorkerSupportsCancellation = true;
+            this.fileTransferBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.FileTransferBackgroundWorkerDoWork);
+            this.fileTransferBackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.FileTransferBackgroundWorkerProgressChanged);
+            this.fileTransferBackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.FileTransferBackgroundWorkerRunWorkerCompleted);
             // 
             // statusStrip1
             // 
@@ -121,6 +122,11 @@
             this.TotalTransferProgressBar.Size = new System.Drawing.Size(390, 23);
             this.TotalTransferProgressBar.TabIndex = 7;
             // 
+            // cleanupBackgroundWorker
+            // 
+            this.cleanupBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.CleanupBackgroundWorkerDoWork);
+            this.cleanupBackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.CleanupBackgroundWorkerRunWorkerCompleted);
+            // 
             // FileTransferForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -137,6 +143,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "FileTransferForm";
             this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Transfer File(s)";
             this.Load += new System.EventHandler(this.TransferFileFormLoad);
             this.ResumeLayout(false);
@@ -152,9 +159,10 @@
         private System.Windows.Forms.Button CancelButton;
         private System.Windows.Forms.Label SourceFilePath;
         private System.Windows.Forms.Label TargetFilePath;
-        private System.ComponentModel.BackgroundWorker FileTransferBackgroundWorker;
+        private System.ComponentModel.BackgroundWorker fileTransferBackgroundWorker;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.ComponentModel.BackgroundWorker InitFileTransferBackgroundWorker;
         private System.Windows.Forms.ProgressBar TotalTransferProgressBar;
+        private System.ComponentModel.BackgroundWorker cleanupBackgroundWorker;
     }
 }

@@ -23,6 +23,7 @@ namespace HdfsExplorer
         private void HdfsDriveSelectionFormLoad(object sender, EventArgs e)
         {
             HdfsServerList.DataSource = _hdfsDrives;
+            SelectButton.Enabled = _hdfsDrives.Count > 0;
         }
 
         public string SelectButtonText

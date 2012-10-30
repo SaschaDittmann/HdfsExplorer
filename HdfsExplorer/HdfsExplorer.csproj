@@ -48,6 +48,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DriveEntryNameForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DriveEntryNameForm.Designer.cs">
+      <DependentUpon>DriveEntryNameForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Drives\DriveEntry.cs" />
     <Compile Include="Drives\DriveEntryType.cs" />
     <Compile Include="Drives\HdfsDrive.cs" />
@@ -80,6 +86,9 @@
       <DependentUpon>FileTransferForm.cs</DependentUpon>
     </Compile>
     <Compile Include="FileTransferParameters.cs" />
+    <EmbeddedResource Include="DriveEntryNameForm.resx">
+      <DependentUpon>DriveEntryNameForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="HdfsDriveForm.resx">
       <DependentUpon>HdfsDriveForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -112,7 +121,39 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\server_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\server_delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\server_edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\folder_delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\folder_edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\folder_new.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\copy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\paste.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cut.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\server_hadoop.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\refresh.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

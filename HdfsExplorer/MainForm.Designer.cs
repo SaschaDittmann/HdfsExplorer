@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.leftFileGrid = new System.Windows.Forms.DataGridView();
             this.LeftKeyColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -38,6 +39,20 @@
             this.LeftSizeTextColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LeftSizeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.leftDirectoryTree = new System.Windows.Forms.TreeView();
+            this.directoryTreeContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.addHdfsServerTreeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editHdfsServerTreeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeHdfsServerTreeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuSeperator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.newFolderTreeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.renameFolderTreeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteFolderTreeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuSeperator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.copyTreeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cutTreeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pasteTreeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuSeperator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.refreshTreeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainSplitContainer = new System.Windows.Forms.SplitContainer();
             this.leftSplitContainer = new System.Windows.Forms.SplitContainer();
             this.rightSplitContainer = new System.Windows.Forms.SplitContainer();
@@ -57,6 +72,7 @@
             this.mainStatusStrip = new System.Windows.Forms.StatusStrip();
             this.mainStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.leftFileGrid)).BeginInit();
+            this.directoryTreeContextMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).BeginInit();
             this.mainSplitContainer.Panel1.SuspendLayout();
             this.mainSplitContainer.Panel2.SuspendLayout();
@@ -162,6 +178,7 @@
             // 
             // leftDirectoryTree
             // 
+            this.leftDirectoryTree.ContextMenuStrip = this.directoryTreeContextMenu;
             this.leftDirectoryTree.Dock = System.Windows.Forms.DockStyle.Fill;
             this.leftDirectoryTree.HideSelection = false;
             this.leftDirectoryTree.Location = new System.Drawing.Point(0, 0);
@@ -172,6 +189,122 @@
             this.leftDirectoryTree.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.LeftDirectoryTreeBeforeSelect);
             this.leftDirectoryTree.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.DirectoryTreeKeyPress);
             this.leftDirectoryTree.KeyUp += new System.Windows.Forms.KeyEventHandler(this.DirectoryTreeKeyUp);
+            // 
+            // directoryTreeContextMenu
+            // 
+            this.directoryTreeContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addHdfsServerTreeMenuItem,
+            this.editHdfsServerTreeMenuItem,
+            this.removeHdfsServerTreeMenuItem,
+            this.toolStripMenuSeperator1,
+            this.newFolderTreeMenuItem,
+            this.renameFolderTreeMenuItem,
+            this.deleteFolderTreeMenuItem,
+            this.toolStripMenuSeperator2,
+            this.copyTreeMenuItem,
+            this.cutTreeMenuItem,
+            this.pasteTreeMenuItem,
+            this.toolStripMenuSeperator3,
+            this.refreshTreeMenuItem});
+            this.directoryTreeContextMenu.Name = "contextMenuStrip1";
+            this.directoryTreeContextMenu.Size = new System.Drawing.Size(185, 264);
+            this.directoryTreeContextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.DirectoryTreeContextMenuOpening);
+            // 
+            // addHdfsServerTreeMenuItem
+            // 
+            this.addHdfsServerTreeMenuItem.Image = global::HdfsExplorer.Properties.Resources.AddServer;
+            this.addHdfsServerTreeMenuItem.Name = "addHdfsServerTreeMenuItem";
+            this.addHdfsServerTreeMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.addHdfsServerTreeMenuItem.Text = "Add HDFS Server";
+            this.addHdfsServerTreeMenuItem.Click += new System.EventHandler(this.AddHdfsServerTreeMenuItemClick);
+            // 
+            // editHdfsServerTreeMenuItem
+            // 
+            this.editHdfsServerTreeMenuItem.Image = global::HdfsExplorer.Properties.Resources.EditServer;
+            this.editHdfsServerTreeMenuItem.Name = "editHdfsServerTreeMenuItem";
+            this.editHdfsServerTreeMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.editHdfsServerTreeMenuItem.Text = "Edit HDFS Server";
+            this.editHdfsServerTreeMenuItem.Click += new System.EventHandler(this.EditHdfsServerTreeMenuItemClick);
+            // 
+            // removeHdfsServerTreeMenuItem
+            // 
+            this.removeHdfsServerTreeMenuItem.Image = global::HdfsExplorer.Properties.Resources.RemoveServer;
+            this.removeHdfsServerTreeMenuItem.Name = "removeHdfsServerTreeMenuItem";
+            this.removeHdfsServerTreeMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.removeHdfsServerTreeMenuItem.Text = "Remove HDFS Server";
+            this.removeHdfsServerTreeMenuItem.Click += new System.EventHandler(this.RemoveHdfsServerTreeMenuItemClick);
+            // 
+            // toolStripMenuSeperator1
+            // 
+            this.toolStripMenuSeperator1.Name = "toolStripMenuSeperator1";
+            this.toolStripMenuSeperator1.Size = new System.Drawing.Size(181, 6);
+            // 
+            // newFolderTreeMenuItem
+            // 
+            this.newFolderTreeMenuItem.Image = global::HdfsExplorer.Properties.Resources.NewFolder;
+            this.newFolderTreeMenuItem.Name = "newFolderTreeMenuItem";
+            this.newFolderTreeMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.newFolderTreeMenuItem.Text = "New Folder";
+            this.newFolderTreeMenuItem.Click += new System.EventHandler(this.NewFolderTreeMenuItemClick);
+            // 
+            // renameFolderTreeMenuItem
+            // 
+            this.renameFolderTreeMenuItem.Image = global::HdfsExplorer.Properties.Resources.RenameFolder;
+            this.renameFolderTreeMenuItem.Name = "renameFolderTreeMenuItem";
+            this.renameFolderTreeMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.renameFolderTreeMenuItem.Text = "Rename Folder";
+            this.renameFolderTreeMenuItem.Click += new System.EventHandler(this.RenameFolderTreeMenuItemClick);
+            // 
+            // deleteFolderTreeMenuItem
+            // 
+            this.deleteFolderTreeMenuItem.Image = global::HdfsExplorer.Properties.Resources.DeleteFolder;
+            this.deleteFolderTreeMenuItem.Name = "deleteFolderTreeMenuItem";
+            this.deleteFolderTreeMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.deleteFolderTreeMenuItem.Text = "Delete Folder";
+            this.deleteFolderTreeMenuItem.Click += new System.EventHandler(this.DeleteFolderTreeMenuItemClick);
+            // 
+            // toolStripMenuSeperator2
+            // 
+            this.toolStripMenuSeperator2.Name = "toolStripMenuSeperator2";
+            this.toolStripMenuSeperator2.Size = new System.Drawing.Size(181, 6);
+            // 
+            // copyTreeMenuItem
+            // 
+            this.copyTreeMenuItem.Image = global::HdfsExplorer.Properties.Resources.Copy;
+            this.copyTreeMenuItem.Name = "copyTreeMenuItem";
+            this.copyTreeMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.copyTreeMenuItem.Text = "Copy";
+            this.copyTreeMenuItem.Click += new System.EventHandler(this.CopyTreeMenuItemClick);
+            // 
+            // cutTreeMenuItem
+            // 
+            this.cutTreeMenuItem.Image = global::HdfsExplorer.Properties.Resources.Cut;
+            this.cutTreeMenuItem.Name = "cutTreeMenuItem";
+            this.cutTreeMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.cutTreeMenuItem.Text = "Cut";
+            this.cutTreeMenuItem.Click += new System.EventHandler(this.CutTreeMenuItemClick);
+            // 
+            // pasteTreeMenuItem
+            // 
+            this.pasteTreeMenuItem.Image = global::HdfsExplorer.Properties.Resources.Paste;
+            this.pasteTreeMenuItem.Name = "pasteTreeMenuItem";
+            this.pasteTreeMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.pasteTreeMenuItem.Text = "Paste";
+            this.pasteTreeMenuItem.Click += new System.EventHandler(this.PasteTreeMenuItemClick);
+            // 
+            // toolStripMenuSeperator3
+            // 
+            this.toolStripMenuSeperator3.Name = "toolStripMenuSeperator3";
+            this.toolStripMenuSeperator3.Size = new System.Drawing.Size(181, 6);
+            // 
+            // refreshTreeMenuItem
+            // 
+            this.refreshTreeMenuItem.Image = global::HdfsExplorer.Properties.Resources.Refresh;
+            this.refreshTreeMenuItem.Name = "refreshTreeMenuItem";
+            this.refreshTreeMenuItem.ShortcutKeyDisplayString = "F5";
+            this.refreshTreeMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.refreshTreeMenuItem.Text = "Refresh";
+            this.refreshTreeMenuItem.Click += new System.EventHandler(this.RefreshTreeMenuItemClick);
             // 
             // mainSplitContainer
             // 
@@ -228,6 +361,7 @@
             // 
             // rightDirectoryTree
             // 
+            this.rightDirectoryTree.ContextMenuStrip = this.directoryTreeContextMenu;
             this.rightDirectoryTree.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rightDirectoryTree.HideSelection = false;
             this.rightDirectoryTree.Location = new System.Drawing.Point(0, 0);
@@ -340,7 +474,7 @@
             // addHdfsServerButton
             // 
             this.addHdfsServerButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.addHdfsServerButton.Image = ((System.Drawing.Image)(resources.GetObject("addHdfsServerButton.Image")));
+            this.addHdfsServerButton.Image = global::HdfsExplorer.Properties.Resources.AddServer;
             this.addHdfsServerButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.addHdfsServerButton.Name = "addHdfsServerButton";
             this.addHdfsServerButton.Size = new System.Drawing.Size(23, 22);
@@ -350,7 +484,7 @@
             // editHdfsServerButton
             // 
             this.editHdfsServerButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.editHdfsServerButton.Image = ((System.Drawing.Image)(resources.GetObject("editHdfsServerButton.Image")));
+            this.editHdfsServerButton.Image = global::HdfsExplorer.Properties.Resources.EditServer;
             this.editHdfsServerButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.editHdfsServerButton.Name = "editHdfsServerButton";
             this.editHdfsServerButton.Size = new System.Drawing.Size(23, 22);
@@ -360,7 +494,7 @@
             // removeHdfsServerButton
             // 
             this.removeHdfsServerButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.removeHdfsServerButton.Image = ((System.Drawing.Image)(resources.GetObject("removeHdfsServerButton.Image")));
+            this.removeHdfsServerButton.Image = global::HdfsExplorer.Properties.Resources.RemoveServer;
             this.removeHdfsServerButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.removeHdfsServerButton.Name = "removeHdfsServerButton";
             this.removeHdfsServerButton.Size = new System.Drawing.Size(23, 22);
@@ -390,11 +524,13 @@
             this.Controls.Add(this.mainStatusStrip);
             this.Controls.Add(this.mainToolStrip);
             this.Controls.Add(this.mainSplitContainer);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "HDFS Explorer";
             this.Load += new System.EventHandler(this.MainFormLoad);
             this.Leave += new System.EventHandler(this.MainFormLeave);
             ((System.ComponentModel.ISupportInitialize)(this.leftFileGrid)).EndInit();
+            this.directoryTreeContextMenu.ResumeLayout(false);
             this.mainSplitContainer.Panel1.ResumeLayout(false);
             this.mainSplitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).EndInit();
@@ -446,6 +582,20 @@
         private System.Windows.Forms.ToolStripButton editHdfsServerButton;
         private System.Windows.Forms.StatusStrip mainStatusStrip;
         private System.Windows.Forms.ToolStripStatusLabel mainStatusLabel;
+        private System.Windows.Forms.ContextMenuStrip directoryTreeContextMenu;
+        private System.Windows.Forms.ToolStripMenuItem addHdfsServerTreeMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editHdfsServerTreeMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem removeHdfsServerTreeMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuSeperator1;
+        private System.Windows.Forms.ToolStripMenuItem newFolderTreeMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem renameFolderTreeMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteFolderTreeMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuSeperator2;
+        private System.Windows.Forms.ToolStripMenuItem copyTreeMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cutTreeMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pasteTreeMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuSeperator3;
+        private System.Windows.Forms.ToolStripMenuItem refreshTreeMenuItem;
     }
 }
 

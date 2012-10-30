@@ -167,9 +167,33 @@ namespace HdfsExplorer.Drives
             }
         }
 
+        public void RenameFile(string oldFilePath, string newFilePath)
+        {
+            if (!File.Exists(oldFilePath))
+                return;
+
+            File.Move(oldFilePath, newFilePath);
+        }
+
         public void DeleteFile(string file)
         {
             File.Delete(file);
+        }
+
+        public void CreateDirectory(string path)
+        {
+            if (Directory.Exists(path))
+                return;
+
+            Directory.CreateDirectory(path);
+        }
+
+        public void RenameDirectory(string oldPath, string newPath)
+        {
+            if (!Directory.Exists(oldPath))
+                return;
+
+            Directory.Move(oldPath, newPath);
         }
 
         public void DeleteDirectory(string path)

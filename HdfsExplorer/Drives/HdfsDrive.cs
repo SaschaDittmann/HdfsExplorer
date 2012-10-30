@@ -210,12 +210,46 @@ namespace HdfsExplorer.Drives
             }
         }
 
+        public void RenameFile(string oldFilePath, string newFilePath)
+        {
+            using (var fileSystem = GetHdfsFileSystemConnection())
+            {
+                if (!fileSystem.IsValid() || !fileSystem.FileExists(oldFilePath)) return;
+                fileSystem.RenameFile(oldFilePath, newFilePath);
+            }
+        }
+
         public void DeleteFile(string file)
         {
             using (var fileSystem = GetHdfsFileSystemConnection())
             {
                 if (!fileSystem.IsValid() || !fileSystem.FileExists(file)) return;
                 fileSystem.DeleteFile(file);
+            }
+        }
+
+        public void CreateDirectory(string path)
+        {
+            using (var fileSystem = GetHdfsFileSystemConnection())
+            {
+                if (!fileSystem.IsValid()
+                    || fileSystem.GetPathInfo(path) != null)
+                    return;
+
+                fileSystem.CreateDirectory(path);
+            }
+        }
+
+        public void RenameDirectory(string oldPath, string newPath)
+        {
+            using (var fileSystem = GetHdfsFileSystemConnection())
+            {
+                if (!fileSystem.IsValid()
+                    || fileSystem.GetPathInfo(oldPath) == null
+                    || fileSystem.GetPathInfo(oldPath).Kind != HdfsFileInfoEntryKind.Directory)
+                    return;
+
+                fileSystem.RenameFile(oldPath, newPath);
             }
         }
 

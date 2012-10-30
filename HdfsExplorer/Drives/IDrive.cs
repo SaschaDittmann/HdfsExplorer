@@ -28,7 +28,10 @@ namespace HdfsExplorer.Drives
         void CloseFileStream();
         void DisposeFileStream();
 
+        void RenameFile(string oldFilePath, string newFilePath);
         void DeleteFile(string file);
+        void CreateDirectory(string path);
+        void RenameDirectory(string oldPath, string newPath);
         void DeleteDirectory(string path);
     }
 }

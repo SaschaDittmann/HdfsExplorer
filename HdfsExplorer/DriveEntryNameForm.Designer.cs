@@ -1,6 +1,6 @@
 ﻿namespace HdfsExplorer
 {
-    partial class HdfsDriveSelectionForm
+    partial class DriveEntryNameForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,61 +28,62 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.SelectButton = new System.Windows.Forms.Button();
+            this.NameTextBox = new System.Windows.Forms.TextBox();
+            this.SaveButton = new System.Windows.Forms.Button();
             this.CancelButton = new System.Windows.Forms.Button();
-            this.HdfsServerList = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
-            // SelectButton
+            // NameTextBox
             // 
-            this.SelectButton.Location = new System.Drawing.Point(116, 217);
-            this.SelectButton.Name = "SelectButton";
-            this.SelectButton.Size = new System.Drawing.Size(75, 23);
-            this.SelectButton.TabIndex = 0;
-            this.SelectButton.Text = "Select";
-            this.SelectButton.UseVisualStyleBackColor = true;
-            this.SelectButton.Click += new System.EventHandler(this.SelectButtonClick);
+            this.NameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.NameTextBox.Location = new System.Drawing.Point(12, 12);
+            this.NameTextBox.Name = "NameTextBox";
+            this.NameTextBox.Size = new System.Drawing.Size(260, 20);
+            this.NameTextBox.TabIndex = 0;
+            // 
+            // SaveButton
+            // 
+            this.SaveButton.Location = new System.Drawing.Point(116, 38);
+            this.SaveButton.Name = "SaveButton";
+            this.SaveButton.Size = new System.Drawing.Size(75, 23);
+            this.SaveButton.TabIndex = 1;
+            this.SaveButton.Text = "Save";
+            this.SaveButton.UseVisualStyleBackColor = true;
+            this.SaveButton.Click += new System.EventHandler(this.SaveButtonClick);
             // 
             // CancelButton
             // 
             this.CancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.CancelButton.Location = new System.Drawing.Point(197, 217);
+            this.CancelButton.Location = new System.Drawing.Point(197, 38);
             this.CancelButton.Name = "CancelButton";
             this.CancelButton.Size = new System.Drawing.Size(75, 23);
-            this.CancelButton.TabIndex = 1;
+            this.CancelButton.TabIndex = 2;
             this.CancelButton.Text = "Cancel";
             this.CancelButton.UseVisualStyleBackColor = true;
             // 
-            // HdfsServerList
+            // DriveEntryNameForm
             // 
-            this.HdfsServerList.FormattingEnabled = true;
-            this.HdfsServerList.Location = new System.Drawing.Point(12, 12);
-            this.HdfsServerList.Name = "HdfsServerList";
-            this.HdfsServerList.Size = new System.Drawing.Size(260, 199);
-            this.HdfsServerList.TabIndex = 2;
-            // 
-            // HdfsDriveSelectionForm
-            // 
-            this.AcceptButton = this.SelectButton;
+            this.AcceptButton = this.SaveButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 248);
-            this.Controls.Add(this.HdfsServerList);
+            this.ClientSize = new System.Drawing.Size(284, 73);
             this.Controls.Add(this.CancelButton);
-            this.Controls.Add(this.SelectButton);
+            this.Controls.Add(this.SaveButton);
+            this.Controls.Add(this.NameTextBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Name = "HdfsDriveSelectionForm";
+            this.Name = "DriveEntryNameForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Select HDFS Server";
-            this.Load += new System.EventHandler(this.HdfsDriveSelectionFormLoad);
+            this.Text = "Drive Entry Name";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button SelectButton;
+        private System.Windows.Forms.TextBox NameTextBox;
+        private System.Windows.Forms.Button SaveButton;
         private System.Windows.Forms.Button CancelButton;
-        private System.Windows.Forms.ListBox HdfsServerList;
     }
 }

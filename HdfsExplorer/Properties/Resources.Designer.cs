@@ -61,6 +61,16 @@ namespace HdfsExplorer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AddServer {
+            get {
+                object obj = ResourceManager.GetObject("AddServer", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Test HDFS Connection.
         /// </summary>
         internal static string ConnectionTestCaption {
@@ -84,6 +94,26 @@ namespace HdfsExplorer.Properties {
         internal static string ConnectionTestSuccessMessage {
             get {
                 return ResourceManager.GetString("ConnectionTestSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Copy {
+            get {
+                object obj = ResourceManager.GetObject("Copy", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Cut {
+            get {
+                object obj = ResourceManager.GetObject("Cut", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -133,6 +163,26 @@ namespace HdfsExplorer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap DeleteFolder {
+            get {
+                object obj = ResourceManager.GetObject("DeleteFolder", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap EditServer {
+            get {
+                object obj = ResourceManager.GetObject("EditServer", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occured.
         /// </summary>
         internal static string ErrorCaption {
@@ -147,6 +197,42 @@ namespace HdfsExplorer.Properties {
         internal static string ErrorPrefix {
             get {
                 return ResourceManager.GetString("ErrorPrefix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removing files / folders....
+        /// </summary>
+        internal static string FileTransferCleanupStatusMessage {
+            get {
+                return ResourceManager.GetString("FileTransferCleanupStatusMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copying files / folders....
+        /// </summary>
+        internal static string FileTransferCopyStatusMessage {
+            get {
+                return ResourceManager.GetString("FileTransferCopyStatusMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Initialize File Transfer....
+        /// </summary>
+        internal static string FileTransferInitStatusMessage {
+            get {
+                return ResourceManager.GetString("FileTransferInitStatusMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Moving files / folders....
+        /// </summary>
+        internal static string FileTransferMoveStatusMessage {
+            get {
+                return ResourceManager.GetString("FileTransferMoveStatusMessage", resourceCulture);
             }
         }
         
@@ -169,11 +255,12 @@ namespace HdfsExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Initialize File Transfer....
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static string InitFileTransferStatusMessage {
+        internal static System.Drawing.Icon HdfsExplorer {
             get {
-                return ResourceManager.GetString("InitFileTransferStatusMessage", resourceCulture);
+                object obj = ResourceManager.GetObject("HdfsExplorer", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         
@@ -192,6 +279,54 @@ namespace HdfsExplorer.Properties {
         internal static string LoadingText {
             get {
                 return ResourceManager.GetString("LoadingText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap NewFolder {
+            get {
+                object obj = ResourceManager.GetObject("NewFolder", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Folder.
+        /// </summary>
+        internal static string NewFolderFormCaption {
+            get {
+                return ResourceManager.GetString("NewFolderFormCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Folder.
+        /// </summary>
+        internal static string NewFolderFormSaveButtonText {
+            get {
+                return ResourceManager.GetString("NewFolderFormSaveButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Paste {
+            get {
+                object obj = ResourceManager.GetObject("Paste", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Refresh {
+            get {
+                object obj = ResourceManager.GetObject("Refresh", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -219,6 +354,62 @@ namespace HdfsExplorer.Properties {
         internal static string RemoveHdfsServerQuestion {
             get {
                 return ResourceManager.GetString("RemoveHdfsServerQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RemoveServer {
+            get {
+                object obj = ResourceManager.GetObject("RemoveServer", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rename File.
+        /// </summary>
+        internal static string RenameFileFormCaption {
+            get {
+                return ResourceManager.GetString("RenameFileFormCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rename.
+        /// </summary>
+        internal static string RenameFileFormSaveButtonText {
+            get {
+                return ResourceManager.GetString("RenameFileFormSaveButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RenameFolder {
+            get {
+                object obj = ResourceManager.GetObject("RenameFolder", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rename Folder.
+        /// </summary>
+        internal static string RenameFolderFormCaption {
+            get {
+                return ResourceManager.GetString("RenameFolderFormCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rename.
+        /// </summary>
+        internal static string RenameFolderFormSaveButtonText {
+            get {
+                return ResourceManager.GetString("RenameFolderFormSaveButtonText", resourceCulture);
             }
         }
     }
