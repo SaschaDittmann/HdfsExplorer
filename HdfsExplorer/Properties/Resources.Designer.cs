@@ -118,7 +118,7 @@ namespace HdfsExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 9000.
+        ///   Looks up a localized string similar to 8020.
         /// </summary>
         internal static string DefaultHdfsDrivePort {
             get {
