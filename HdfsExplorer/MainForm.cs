@@ -154,7 +154,7 @@ namespace HdfsExplorer
                         e.Handled = true;
                         break;
                     case 22:
-                        StartFileTransfer(drive.Key, treeView.SelectedNode.Name);
+                        StartFileTransfer(drive.Key, treeView.SelectedNode.Name.Split('|')[0]);
                         e.Handled = true;
                         break;
                 }
@@ -601,7 +601,7 @@ namespace HdfsExplorer
                 if (treeView == null || treeView.SelectedNode == null) return;
 
                 var drive = GetDriveFromTreeNode(treeView.SelectedNode);
-                StartFileTransfer(drive.Key, treeView.SelectedNode.Name);
+                StartFileTransfer(drive.Key, treeView.SelectedNode.Name.Split('|')[0]);
             }
             catch (Exception ex)
             {
